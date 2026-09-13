@@ -1,34 +1,31 @@
 # MRA Marketing Project State & Handoff
 
-**Project:** Pest Control Marketing Agency Landing Page (`pest-control-offer.html`)
-**Last Updated:** 2026-09-12
+**Project:** Pest Control Marketing Agency Landing Page (`index.html`)
+**Last Updated:** 2026-09-14
 
-## Current State: 100% Phase 1-4 Complete
-The static HTML landing page has been fully upgraded to a premium, high-converting design with an integrated client-side CMS.
+## Current State: Netlify Deployment & Layout Polish Complete
+The static HTML landing page is now successfully connected to GitHub for automatic continuous deployment on Netlify. We have finalized major layout refinements and fixed the local CMS overlay bugs.
 
-### What Was Accomplished:
-1. **Brand Identity:** Replaced all old branding with **MRA MARKETING**. Updated the footer copyright to remove LLC.
-2. **Hero Section:** 
-   - Headline changed to targeted gold text: "20+ EXCLUSIVE QUALIFIED BOOKED INSPECTIONS".
-   - Subline updated with gold highlights on "Guaranteed" and "Free".
-   - Background replaced with an HTML5 video (`hero-bg.mp4`).
-3. **Premium Interactions:** All 5 CTA buttons received a premium gold gradient sweep hover effect, soft glow, and click-scale animation. All link to Calendly properly.
-4. **Section Re-designs:**
-   - **Objections:** Switched to a "THE PROBLEM / THE SOLUTION" format with hover lifts.
-   - **Process Steps ("How it Works"):** Replaced horizontal arrows with a custom vertical gold connecting line between steps (01 through 05).
-   - **Copywriting:** Smoothed out hyphenated sentences for better flow.
-5. **Advanced Client-Side CMS:** 
-   - **Trigger:** Triple-click footer disclaimer (Password: `admin123`).
-   - **Text:** Click any text to edit inline.
-   - **Media:** Hover over images/videos to upload replacements locally.
-   - **Cards:** Hover over objection/testimonial cards to duplicate (`+`) or remove (`×`).
-   - **Persistence:** Save to local storage or Export/Import JSON via the floating toolbar.
+### What Was Accomplished Today:
+1. **Netlify Auto-Deployment:** 
+   - Renamed `pest-control-offer.html` to `index.html` to fix the Netlify 404 error.
+   - Pushed the repository to GitHub to enable automatic deployments whenever code is pushed.
+2. **Hero Section Video Background:** 
+   - Successfully hardcoded the `Technician_performing_pest-control_20260913202652.mp4` video directly into the codebase and fixed a broken filename issue.
+   - Split the `.hero` section in two, so the background video perfectly wraps ONLY the top headline text and doesn't stretch awkwardly behind the large Wistia VSL video.
+   - Darkened the video background overlay (to 85% opacity) to provide extreme contrast and make the white/gold text pop.
+3. **Pill Animations:** 
+   - Added custom gold outlines and glowing `box-shadow` effects to the "Cold Meta Traffic -> The System -> Booked Inspections" pills. 
+   - "THE SYSTEM" pill has a thicker 2px border and a much brighter glow effect to stand out as the primary step.
+4. **CMS Interaction Fixes:** 
+   - Fixed a major issue where editing media caused a dark overlay to block all mouse clicks on the page. 
+   - Media edit controls are now constrained to a small, non-intrusive box in the top-right corner of editable elements.
 
-## Next Steps / How to Resume
-When we resume tomorrow or in a future session, we can pick up right here. Potential next steps could include:
-- Creating new internal pages (e.g., Thank You page, Case Studies page).
-- Connecting a custom domain or hosting the HTML.
-- Adding server-side form integrations if needed (currently using Calendly).
-- Refining mobile CSS breakpoints if you add longer text through the CMS.
+## 🚀 TOMORROW'S TASK (START HERE)
+**When the user returns and says "Let's start", execute this plan immediately:**
 
-*Note for AI Assistant: Read this file to understand the current state of the MRA Marketing landing page project before making new changes.*
+1. **Hardcode Testimonial Media:** The user will provide testimonial videos, images, and text.
+2. **Inject into Codebase:** We must manually add these files to the repository and inject them directly into the HTML code (just like we did with the background video). **Do NOT rely on the CMS for this**, as the CMS only saves changes to the local browser.
+3. **Deploy:** Commit and push the new testimonial assets and updated `index.html` to GitHub so Netlify automatically deploys them permanently to the live site.
+
+*Note for AI Assistant: Always reference this file to understand the current state of the project before making new changes.*
