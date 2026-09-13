@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Outreach Pipeline CRM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="libs/react.production.min.js"></script>
+<script src="libs/react-dom.production.min.js"></script>
+<script src="libs/babel.min.js"></script>
+<script src="libs/xlsx.full.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #10161F; font-family: 'Inter', sans-serif; }
+  .font-display { font-family: 'Oswald', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  ::-webkit-scrollbar { height: 8px; width: 8px; }
+  ::-webkit-scrollbar-thumb { background: #2B3644; border-radius: 4px; }
+  .crm-input { background: #232E3D; border: 1px solid #2B3644; color: #E9ECF1; border-radius: 6px; padding: 8px 10px; font-size: 13px; font-family: inherit; outline: none; width: 100%; }
+  .crm-input:focus { border-color: #C77D3B; }
+  .crm-btn { background: #232E3D; border: 1px solid #2B3644; color: #E9ECF1; border-radius: 6px; padding: 7px 12px; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
+  .crm-btn:hover { border-color: #C77D3B; }
+  .crm-btn-accent { background: #C77D3B; border: 1px solid #C77D3B; color: #1A120A; font-weight: 500; }
+  .crm-btn-accent:hover { opacity: 0.9; }
+  .crm-checkbox { accent-color: #C77D3B; width: 15px; height: 15px; cursor: pointer; }
+  .crm-tab { background: transparent; border: 1px solid #2B3644; color: #93A0B2; border-radius: 6px; padding: 6px 14px; font-size: 13px; cursor: pointer; font-family: inherit; }
+  .crm-tab-active { background: #3A2A1C; border-color: #C77D3B; color: #C77D3B; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+  Babel.registerPreset("my-react", {
+    presets: [[Babel.availablePresets["react"], { "runtime": "classic" }]]
+  });
+</script>
+<script type="text/babel" data-presets="my-react">
+const { useState, useEffect, useRef } = React;
+
+const STAGES = ["Not Contacted","Engaged","Responded","In Conversation","Pilot Offered","Won","Lost"];
+const STAGE_COLOR = {
+  "Not Contacted": "#5B6675", "Engaged": "#C77D3B", "Responded": "#3E8FBF",
+  "In Conversation": "#3E8FBF", "Pilot Offered": "#D9A441", "Won": "#4C9A6A", "Lost": "#C1554A",
+};
+const NICHES = [{ id: "plumbing", label: "Plumbing" }, { id: "dentists", label: "Dentists" }];
+const STORAGE_KEY = "outreach_crm_data_v1";
+
+const PLUMBING_SEED = [
+  { username: "jplumbing947", fullName: "Js One Stop Plumbing", city: "", followers: 17545, phone: "+13237899641", email: "jplumbing947@gmail.com", profileLink: "https://www.instagram.com/jplumbing947/" },
+  { username: "repipe_champions", fullName: "Repipe Champions Plumbing and Rooter", city: "San Jose, California", followers: 406, phone: "+18884235215", email: "", profileLink: "https://www.instagram.com/repipe_champions/" },
+  { username: "socal1plumbing", fullName: "So-Cal 1 Plumbing & Rooter", city: "", followers: 1294, phone: "+17146105942", email: "", profileLink: "https://www.instagram.com/socal1plumbing/" },
+  { username: "visionplumbingheatingcooling", fullName: "Vision Plumbing Heating Cooling", city: "", followers: 4708, phone: "+12504709552", email: "", profileLink: "https://www.instagram.com/visionplumbingheatingcooling/" },
+  { username: "totalplumbingtx", fullName: "Total Plumbing Service Inc", city: "", followers: 7660, phone: "+19726814434", email: "", profileLink: "https://www.instagram.com/totalplumbingtx/" },
+  { username: "535plumbingllc", fullName: "535 Plumbing LLC", city: "Honolulu, Hawaii", followers: 1650, phone: "+18089796487", email: "", profileLink: "https://www.instagram.com/535plumbingllc/" },
+  { username: "biloplumbing198", fullName: "Bilo Plumbing & Heating", city: "Ipswich, Massachusetts", followers: 851, phone: "+19783561566", email: "", profileLink: "https://www.instagram.com/biloplumbing198/" },
+  { username: "drain.force.plumbing", fullName: "Drain Force Plumbing", city: "", followers: 4456, phone: "+13109012120", email: "", profileLink: "https://www.instagram.com/drain.force.plumbing/" },
+  { username: "kingrooterandplumbing", fullName: "King Rooter Plumbing", city: "Denver, Colorado", followers: 240, phone: "+17208154466", email: "", profileLink: "https://www.instagram.com/kingrooterandplumbing/" },
+  { username: "americaneagleplumbing", fullName: "American Eagle Plumbing", city: "Hutto, Texas", followers: 772, phone: "+15126268661", email: "", profileLink: "https://www.instagram.com/americaneagleplumbing/" },
+  { username: "dr.wplumber", fullName: "Dr. W Plumber | Repairs & Installs", city: "Miami, Florida", followers: 2622, phone: "+17862628653", email: "", profileLink: "https://www.instagram.com/dr.wplumber/" },
+  { username: "colosoplumbing", fullName: "Coloso Plumbing", city: "Cartersville, Georgia", followers: 1505, phone: "+16788009562", email: "", profileLink: "https://www.instagram.com/colosoplumbing/" },
+];
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+function normKey(k) { return String(k || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+function pick(row, candidates) {
+  const map = {};
+  Object.keys(row).forEach((k) => (map[normKey(k)] = row[k]));
+  for (const c of candidates) {
+    const v = map[normKey(c)];
+    if (v !== undefined && v !== null && v !== "") return v;
+  }
+  return "";
+}
+
+function loadAllData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  const seedContacts = PLUMBING_SEED.map((c, i) => ({
+    id: "seed-" + i, serial: i + 1, ...c, commented: false, dmed: false,
+    stage: "Not Contacted", reminderDate: "", notes: [], createdAt: Date.now(), deleted: false,
+    batchId: "Initial Seed", deletedAt: null, restoredAt: null,
+  }));
+  return {
+    plumbing: { contacts: seedContacts, nextSerial: seedContacts.length + 1 },
+    dentists: { contacts: [], nextSerial: 1 },
+  };
+}
+
+function saveAllData(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function rowsToContacts(rows, startSerial, batchId) {
+  return rows.map((row, i) => ({
+    id: uid(),
+    serial: startSerial + i,
+    username: String(pick(row, ["username", "handle"]) || "").replace(/^@/, ""),
+    fullName: String(pick(row, ["fullname", "full name", "name", "businessname"]) || ""),
+    city: String(pick(row, ["city", "location"]) || ""),
+    followers: Number(pick(row, ["followerscount", "followers", "follower count"])) || 0,
+    phone: String(pick(row, ["contactphone", "phone", "phonenumber"]) || ""),
+    email: String(pick(row, ["publicemail", "email"]) || ""),
+    profileLink: String(pick(row, ["profilelink", "externalurl", "website", "link"]) || ""),
+    commented: /^(true|yes|1)$/i.test(String(pick(row, ["commented"]) || "")),
+    dmed: /^(true|yes|1)$/i.test(String(pick(row, ["dmed"]) || "")),
+    deleted: /^(true|yes|1)$/i.test(String(pick(row, ["deleted"]) || "")),
+    stage: STAGES.includes(pick(row, ["stage"])) ? pick(row, ["stage"]) : "Not Contacted",
+    reminderDate: String(pick(row, ["reminderdate", "reminder"]) || ""),
+    notes: (() => {
+      const raw = pick(row, ["notes"]);
+      if (!raw) return [];
+      return String(raw).split("||").map((s) => s.trim()).filter(Boolean).map((s) => ({ id: uid(), text: s, date: todayStr() }));
+    })(),
+    createdAt: Date.now(),
+    batchId: batchId || "Unknown Batch",
+    deletedAt: null,
+    restoredAt: null,
+  }));
+}
+
+function contactsToRows(contacts) {
+  return contacts.map((c) => ({
+    "#": c.serial, "Batch": c.batchId || "", "Username": c.username, "Full name": c.fullName, "City": c.city,
+    "Followers": c.followers, "Phone": c.phone, "Email": c.email, "Profile link": c.profileLink,
+    "Stage": c.stage, "Commented": c.commented ? "TRUE" : "FALSE", "DMed": c.dmed ? "TRUE" : "FALSE",
+    "Deleted": c.deleted ? "TRUE" : "FALSE",
+    "Deleted At": c.deletedAt || "", "Restored At": c.restoredAt || "",
+    "Reminder date": c.reminderDate, "Notes": c.notes.map((n) => `${n.date}: ${n.text}`).join(" || "),
+  }));
+}
+
+function App() {
+  const [allData, setAllData] = useState(null);
+  const [niche, setNiche] = useState("plumbing");
+  const [view, setView] = useState("board");
+  const [search, setSearch] = useState("");
+  const [activeId, setActiveId] = useState(null);
+  const [showAdd, setShowAdd] = useState(false);
+  const [saveState, setSaveState] = useState("");
+  const [importMsg, setImportMsg] = useState("");
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, type: null, targetId: null });
+  const [toast, setToast] = useState({ message: "", visible: false });
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [showTrash, setShowTrash] = useState(false);
+  const [selectedBatch, setSelectedBatch] = useState("all");
+  const fileInputRef = useRef(null);
+  const saveTimer = useRef(null);
+
+  const showToast = (msg) => {
+    setToast({ message: msg, visible: true });
+    setTimeout(() => setToast({ message: "", visible: false }), 3000);
+  };
+
+  useEffect(() => { setAllData(loadAllData()); }, []);
+
+  useEffect(() => {
+    if (!allData) return;
+    setSaveState("saving");
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      const ok = saveAllData(allData);
+      setSaveState(ok ? "saved" : "error");
+    }, 400);
+  }, [allData]);
+
+  if (!allData) return <div style={{ color: "#93A0B2", padding: "60px", textAlign: "center" }}>Loading...</div>;
+
+  const contacts = allData[niche].contacts;
+  const nextSerial = allData[niche].nextSerial;
+
+  const setContacts = (updater) => {
+    setAllData((prev) => {
+      const current = prev[niche].contacts;
+      const next = typeof updater === "function" ? updater(current) : updater;
+      return { ...prev, [niche]: { ...prev[niche], contacts: next } };
+    });
+  };
+
+  const bumpSerial = (by) => {
+    setAllData((prev) => ({ ...prev, [niche]: { ...prev[niche], nextSerial: prev[niche].nextSerial + by } }));
+  };
+
+  const updateContact = (id, patch) => setContacts((prev) => prev.map((c) => (c.id === id ? { ...c, ...patch } : c)));
+  const addNote = (id, text) => {
+    if (!text.trim()) return;
+    setContacts((prev) => prev.map((c) => c.id === id ? { ...c, notes: [{ id: uid(), text: text.trim(), date: todayStr() }, ...c.notes] } : c));
+  };
+  
+  const requestDeleteContact = (id) => setConfirmModal({ isOpen: true, type: 'single', targetId: id });
+  const confirmDeleteContact = (id) => {
+    setContacts((prev) => prev.map((c) => (c.id === id ? { ...c, deleted: true, deletedAt: new Date().toISOString() } : c)));
+    setActiveId(null);
+    setConfirmModal({ isOpen: false, type: null, targetId: null });
+    showToast("Prospect deleted");
+  };
+
+  const requestDeleteAll = () => setConfirmModal({ isOpen: true, type: 'all', targetId: null });
+  const confirmDeleteAll = () => {
+    setContacts((prev) => prev.map((c) => (!c.deleted && (selectedBatch === "all" || c.batchId === selectedBatch) ? { ...c, deleted: true, deletedAt: new Date().toISOString() } : c)));
+    setConfirmModal({ isOpen: false, type: null, targetId: null });
+    showToast("All prospects deleted");
+  };
+
+  const restoreAll = () => {
+    setContacts((prev) => prev.map((c) => (c.deleted && (selectedBatch === "all" || c.batchId === selectedBatch) ? { ...c, deleted: false, restoredAt: new Date().toISOString() } : c)));
+    showToast("All prospects restored");
+  };
+
+  const toggleSelection = (id, e) => {
+    e.stopPropagation();
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
+  const toggleAll = () => {
+    if (selectedIds.length === filtered.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(filtered.map(c => c.id));
+    }
+  };
+  const deleteSelected = () => {
+    setContacts(prev => prev.map(c => selectedIds.includes(c.id) ? { ...c, deleted: true, deletedAt: new Date().toISOString() } : c));
+    setSelectedIds([]);
+    showToast(`${selectedIds.length} prospects deleted`);
+  };
+  const restoreSelected = () => {
+    setContacts(prev => prev.map(c => selectedIds.includes(c.id) ? { ...c, deleted: false, restoredAt: new Date().toISOString() } : c));
+    setSelectedIds([]);
+    showToast(`${selectedIds.length} prospects restored`);
+  };
+  const emptyTrash = () => {
+    setConfirmModal({ isOpen: true, type: 'empty_trash', targetId: null });
+  };
+  const confirmEmptyTrash = () => {
+    setContacts(prev => prev.filter(c => !c.deleted));
+    setConfirmModal({ isOpen: false, type: null, targetId: null });
+    setSelectedIds([]);
+    showToast("Trash emptied");
+  };
+
+  const addContact = (data) => {
+    const activePipelineEmpty = contacts.filter(c => !c.deleted).length === 0;
+    const srl = activePipelineEmpty ? 1 : nextSerial;
+
+    const c = {
+      id: uid(), serial: srl, username: data.username || "", fullName: data.fullName || "",
+      city: data.city || "", followers: Number(data.followers) || 0, phone: data.phone || "",
+      email: data.email || "", profileLink: data.profileLink || "", commented: false, dmed: false,
+      stage: "Not Contacted", reminderDate: "", notes: [], createdAt: Date.now(), deleted: false,
+      batchId: "Manual Entry", deletedAt: null, restoredAt: null,
+    };
+    
+    if (activePipelineEmpty) {
+      setAllData((prev) => ({ ...prev, [niche]: { ...prev[niche], contacts: [c, ...prev[niche].contacts], nextSerial: 2 } }));
+    } else {
+      setContacts((prev) => [c, ...prev]);
+      bumpSerial(1);
+    }
+    setShowAdd(false);
+  };
+
+  const handleImport = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const currentNiche = niche; // capture niche at click-time
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const wb = XLSX.read(evt.target.result, { type: "binary" });
+        const sheet = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+        const batchName = `Import - ${new Date().toLocaleString()}`;
+        
+        // Use functional setAllData so we always read fresh state
+        setAllData((prev) => {
+          const nicheData = prev[currentNiche];
+          const activePipelineEmpty = nicheData.contacts.filter(c => !c.deleted).length === 0;
+          const startSerial = activePipelineEmpty ? 1 : nicheData.nextSerial;
+          const imported = rowsToContacts(rows, startSerial, batchName);
+          return {
+            ...prev,
+            [currentNiche]: {
+              ...nicheData,
+              contacts: [...imported, ...nicheData.contacts],
+              nextSerial: startSerial + imported.length,
+            },
+          };
+        });
+        setImportMsg(`Imported ${rows.length} rows as "${batchName}".`);
+        setTimeout(() => setImportMsg(""), 5000);
+      } catch (err) {
+        setImportMsg("Could not read that file. Use a .csv or .xlsx export.");
+        setTimeout(() => setImportMsg(""), 4000);
+      }
+    };
+    reader.readAsBinaryString(file);
+    e.target.value = "";
+  };
+
+  const handleExport = () => {
+    const rows = contactsToRows(contacts);
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, niche);
+    XLSX.writeFile(wb, `${niche}-pipeline-${todayStr()}.xlsx`);
+  };
+
+  const deletedCount = contacts.filter(c => c.deleted).length;
+  const visibleContacts = contacts.filter(c => showTrash ? c.deleted : !c.deleted);
+
+  const filtered = visibleContacts.filter((c) => {
+    if (selectedBatch !== "all" && c.batchId !== selectedBatch) return false;
+    const q = search.trim().toLowerCase();
+    if (!q) return true;
+    return c.username.toLowerCase().includes(q) || c.fullName.toLowerCase().includes(q) || c.city.toLowerCase().includes(q);
+  });
+
+  const uniqueBatches = (() => {
+    const b = new Set();
+    visibleContacts.forEach(c => c.batchId && b.add(c.batchId));
+    return Array.from(b);
+  })();
+
+  const active = contacts.find((c) => c.id === activeId) || null;
+  const dueCount = contacts.filter((c) => !c.deleted && c.reminderDate && c.reminderDate <= todayStr() && c.stage !== "Won" && c.stage !== "Lost").length;
+
+  return (
+    <div style={{ color: "#E9ECF1", minHeight: "100vh", padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+      <div style={{ display: "flex", gap: "8px", marginBottom: "18px" }}>
+        {NICHES.map((n) => (
+          <button key={n.id} className={`crm-tab ${niche === n.id && !showTrash ? "crm-tab-active" : ""}`}
+            onClick={() => { setNiche(n.id); setSearch(""); setActiveId(null); setShowTrash(false); setSelectedIds([]); setSelectedBatch("all"); }}>{n.label}</button>
+        ))}
+        <button className={`crm-tab ${showTrash ? "crm-tab-active" : ""}`} style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "6px" }}
+          onClick={() => { setShowTrash(true); setSearch(""); setActiveId(null); setSelectedIds([]); setSelectedBatch("all"); }}>
+          Trash {deletedCount > 0 ? `(${deletedCount})` : ""}
+        </button>
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
+        <div>
+          <h1 className="font-display" style={{ fontSize: "22px", margin: 0, fontWeight: 600 }}>
+            {showTrash ? "Trash" : `${NICHES.find((n) => n.id === niche).label} pipeline`}
+          </h1>
+          <p style={{ fontSize: "13px", color: "#93A0B2", margin: "4px 0 0" }}>
+            {visibleContacts.length} prospects {showTrash ? "deleted" : "tracked"}
+            {!showTrash && ` · next lead #${nextSerial}`}
+            {!showTrash && dueCount > 0 && <span style={{ color: "#D9A441", marginLeft: "10px" }}>{dueCount} reminder{dueCount > 1 ? "s" : ""} due</span>}
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
+          <span style={{ fontSize: "11px", color: "#5F6C7D" }}>{saveState === "saving" ? "Saving..." : saveState === "saved" ? "Saved to this PC" : ""}</span>
+          <input type="file" accept=".csv,.xlsx,.xls" ref={fileInputRef} style={{ display: "none" }} onChange={handleImport} />
+          {showTrash && visibleContacts.length > 0 && <button className="crm-btn" style={{ color: "#C1554A" }} onClick={emptyTrash}>Empty trash</button>}
+          {showTrash && visibleContacts.length > 0 && <button className="crm-btn" style={{ color: "#4C9A6A" }} onClick={restoreAll}>Restore all</button>}
+          {!showTrash && visibleContacts.length > 0 && <button className="crm-btn" style={{ color: "#C1554A" }} onClick={requestDeleteAll}>Delete all</button>}
+          <button className="crm-btn" onClick={() => fileInputRef.current.click()}>Import</button>
+          <button className="crm-btn" onClick={handleExport}>Export</button>
+          <button className="crm-btn" onClick={() => setView(view === "board" ? "table" : "board")}>{view === "board" ? "Table view" : "Board view"}</button>
+          {!showTrash && <button className="crm-btn crm-btn-accent" onClick={() => setShowAdd(true)}>+ Add prospect</button>}
+        </div>
+      </div>
+
+      {importMsg && <div style={{ fontSize: "12px", color: "#C77D3B", marginBottom: "12px", background: "#3A2A1C", padding: "8px 12px", borderRadius: "6px", display: "inline-block" }}>{importMsg}</div>}
+
+      <div style={{ marginBottom: "18px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
+        <input className="crm-input" style={{ maxWidth: "320px" }} placeholder="Search name, handle, city" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <select className="crm-input" style={{ maxWidth: "200px" }} value={selectedBatch} onChange={(e) => setSelectedBatch(e.target.value)}>
+          <option value="all">All Batches</option>
+          {uniqueBatches.map(b => <option key={b} value={b}>{b}</option>)}
+        </select>
+      </div>
+
+      {visibleContacts.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "50px 20px", color: "#5F6C7D", fontSize: "13px", border: "1px dashed #2B3644", borderRadius: "10px" }}>
+          {showTrash ? "Trash is empty." : `No prospects yet for ${NICHES.find((n) => n.id === niche).label.toLowerCase()}. Import a scraped list or add one manually.`}
+        </div>
+      ) : filtered.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "40px 20px", color: "#5F6C7D", fontSize: "13px", border: "1px dashed #2B3644", borderRadius: "10px" }}>
+          No prospects match your current search or batch filter.
+        </div>
+      ) : view === "board" ? (
+        <div style={{ display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "12px" }}>
+          {STAGES.map((stage) => {
+            const items = filtered.filter((c) => c.stage === stage);
+            return (
+              <div key={stage} style={{ minWidth: "230px", flex: "0 0 230px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
+                  <div style={{ width: "8px", height: "8px", borderRadius: "2px", background: STAGE_COLOR[stage] }}></div>
+                  <span className="font-display" style={{ fontSize: "12px", fontWeight: 600, color: "#93A0B2" }}>{stage}</span>
+                  <span style={{ fontSize: "11px", color: "#5F6C7D", marginLeft: "auto" }}>{items.length}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", minHeight: "40px" }}>
+                  {items.map((c) => {
+                    const overdue = c.reminderDate && c.reminderDate <= todayStr();
+                    return (
+                      <div key={c.id} onClick={() => setActiveId(c.id)}
+                        style={{ background: "#1A222D", border: `1px solid ${selectedIds.includes(c.id) ? "#C77D3B" : overdue ? "#D9A441" : "#2B3644"}`, borderRadius: "8px", padding: "10px 12px", cursor: "pointer", position: "relative" }}>
+                        <div style={{ position: "absolute", top: "10px", right: "10px" }}>
+                          <input type="checkbox" className="crm-checkbox" checked={selectedIds.includes(c.id)} onChange={(e) => toggleSelection(c.id, e)} onClick={(e) => e.stopPropagation()} />
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "20px" }}>
+                          <div style={{ fontSize: "13px", fontWeight: 500 }}>{c.fullName || c.username}</div>
+                        </div>
+                        <div className="font-mono" style={{ fontSize: "10px", color: "#5F6C7D", marginTop: "4px" }}>#{c.serial} &middot; @{c.username}</div>
+                        {c.batchId && <div style={{ fontSize: "10px", color: "#93A0B2", marginTop: "4px", background: "#3A2A1C", display: "inline-block", padding: "2px 6px", borderRadius: "4px" }}>{c.batchId}</div>}
+                        {c.city && <div style={{ fontSize: "11px", color: "#5F6C7D", marginTop: "2px" }}>{c.city}</div>}
+                        <div style={{ display: "flex", gap: "6px", marginTop: "8px" }}>
+                          {c.commented && <span style={{ fontSize: "10px", background: "#3A2A1C", color: "#C77D3B", padding: "2px 6px", borderRadius: "4px" }}>commented</span>}
+                          {c.dmed && <span style={{ fontSize: "10px", background: "#3A2A1C", color: "#C77D3B", padding: "2px 6px", borderRadius: "4px" }}>dmed</span>}
+                        </div>
+                        {overdue && <div style={{ fontSize: "10px", color: "#D9A441", marginTop: "6px" }}>reminder due {c.reminderDate}</div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid #2B3644", textAlign: "left" }}>
+                <th style={{ padding: "8px 10px", width: "30px" }}>
+                  <input type="checkbox" className="crm-checkbox" checked={filtered.length > 0 && selectedIds.length === filtered.length} onChange={toggleAll} />
+                </th>
+                {["#", "Name", "Handle", "Stage", "Commented", "DMed", "Reminder", "Notes"].map((h) => (
+                  <th key={h} style={{ padding: "8px 10px", color: "#5F6C7D", fontWeight: 500, fontSize: "11px", textTransform: "uppercase" }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((c) => (
+                <tr key={c.id} onClick={() => setActiveId(c.id)} style={{ borderBottom: "1px solid #2B3644", cursor: "pointer", background: selectedIds.includes(c.id) ? "rgba(199, 125, 59, 0.1)" : "transparent" }}>
+                  <td style={{ padding: "9px 10px" }}>
+                    <input type="checkbox" className="crm-checkbox" checked={selectedIds.includes(c.id)} onChange={(e) => toggleSelection(c.id, e)} onClick={(e) => e.stopPropagation()} />
+                  </td>
+                  <td className="font-mono" style={{ padding: "9px 10px", color: "#5F6C7D" }}>
+                    {c.serial}
+                    {c.batchId && <><br/><span style={{ fontSize: "9px", color: "#93A0B2" }}>{c.batchId}</span></>}
+                  </td>
+                  <td style={{ padding: "9px 10px" }}>{c.fullName || c.username}</td>
+                  <td className="font-mono" style={{ padding: "9px 10px", color: "#93A0B2" }}>@{c.username}</td>
+                  <td style={{ padding: "9px 10px" }}><span style={{ fontSize: "11px", padding: "2px 8px", borderRadius: "10px", background: "#232E3D", color: STAGE_COLOR[c.stage] }}>{c.stage}</span></td>
+                  <td style={{ padding: "9px 10px" }}>{c.commented ? "Yes" : "—"}</td>
+                  <td style={{ padding: "9px 10px" }}>{c.dmed ? "Yes" : "—"}</td>
+                  <td style={{ padding: "9px 10px", color: c.reminderDate && c.reminderDate <= todayStr() ? "#D9A441" : "#93A0B2" }}>{c.reminderDate || "—"}</td>
+                  <td style={{ padding: "9px 10px", color: "#5F6C7D" }}>{c.notes.length}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+
+      {active && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "40px 16px", zIndex: 50, overflowY: "auto" }}>
+          <div style={{ background: "#1A222D", border: "1px solid #2B3644", borderRadius: "10px", width: "100%", maxWidth: "480px", padding: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+              <div>
+                <div style={{ fontSize: "16px", fontWeight: 500 }}>{active.fullName || active.username} <span className="font-mono" style={{ fontSize: "12px", color: "#5F6C7D" }}>#{active.serial}</span></div>
+                <div className="font-mono" style={{ fontSize: "12px", color: "#93A0B2", marginTop: "2px" }}>@{active.username}</div>
+              </div>
+              <button className="crm-btn" style={{ padding: "6px" }} onClick={() => setActiveId(null)}>Close</button>
+            </div>
+            {active.deletedAt && (
+              <div style={{ marginTop: "12px", fontSize: "11px", color: "#C1554A", background: "rgba(193, 85, 74, 0.1)", padding: "6px 10px", borderRadius: "4px" }}>
+                Deleted on {new Date(active.deletedAt).toLocaleString()}
+              </div>
+            )}
+            {active.restoredAt && !active.deleted && (
+              <div style={{ marginTop: "12px", fontSize: "11px", color: "#4C9A6A", background: "rgba(76, 154, 106, 0.1)", padding: "6px 10px", borderRadius: "4px" }}>
+                Restored on {new Date(active.restoredAt).toLocaleString()}
+              </div>
+            )}
+            <div style={{ display: "flex", gap: "14px", marginTop: "12px", fontSize: "12px", color: "#93A0B2", flexWrap: "wrap" }}>
+              {active.city && <span>{active.city}</span>}
+              {active.followers > 0 && <span>{active.followers.toLocaleString()} followers</span>}
+              {active.profileLink && <a href={active.profileLink} target="_blank" rel="noreferrer" style={{ color: "#C77D3B" }}>Profile</a>}
+            </div>
+            <div style={{ display: "flex", gap: "16px", marginTop: "14px", fontSize: "12px", color: "#93A0B2" }}>
+              {active.phone && <span>{active.phone}</span>}
+              {active.email && <span>{active.email}</span>}
+            </div>
+            <div style={{ marginTop: "18px" }}>
+              <label style={{ fontSize: "11px", color: "#5F6C7D", textTransform: "uppercase" }}>Stage</label>
+              <select className="crm-input" style={{ marginTop: "4px" }} value={active.stage} onChange={(e) => updateContact(active.id, { stage: e.target.value })}>
+                {STAGES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            <div style={{ display: "flex", gap: "18px", marginTop: "14px" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "13px", cursor: "pointer" }}>
+                <input type="checkbox" className="crm-checkbox" checked={active.commented} onChange={(e) => updateContact(active.id, { commented: e.target.checked })} /> Commented
+              </label>
+              <label style={{ display: "flex", alignItems: "center", gap: "7px", fontSize: "13px", cursor: "pointer" }}>
+                <input type="checkbox" className="crm-checkbox" checked={active.dmed} onChange={(e) => updateContact(active.id, { dmed: e.target.checked })} /> DMed
+              </label>
+            </div>
+            <div style={{ marginTop: "14px" }}>
+              <label style={{ fontSize: "11px", color: "#5F6C7D", textTransform: "uppercase" }}>Reminder date</label>
+              <input type="date" className="crm-input" style={{ marginTop: "4px" }} value={active.reminderDate} onChange={(e) => updateContact(active.id, { reminderDate: e.target.value })} />
+            </div>
+            <div style={{ marginTop: "18px" }}>
+              <label style={{ fontSize: "11px", color: "#5F6C7D", textTransform: "uppercase" }}>Notes</label>
+              <NoteForm onSubmit={(text) => addNote(active.id, text)} />
+              <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "8px", maxHeight: "160px", overflowY: "auto" }}>
+                {active.notes.length === 0 && <div style={{ fontSize: "12px", color: "#5F6C7D" }}>No notes yet.</div>}
+                {active.notes.map((n) => (
+                  <div key={n.id} style={{ background: "#232E3D", borderRadius: "6px", padding: "8px 10px" }}>
+                    <div style={{ fontSize: "13px" }}>{n.text}</div>
+                    <div style={{ fontSize: "10px", color: "#5F6C7D", marginTop: "3px" }}>{n.date}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {!showTrash && <button className="crm-btn" style={{ marginTop: "20px", color: "#C1554A" }} onClick={() => requestDeleteContact(active.id)}>Remove prospect</button>}
+          </div>
+        </div>
+      )}
+
+      {showAdd && <AddModal onClose={() => setShowAdd(false)} onAdd={addContact} />}
+
+      {confirmModal.isOpen && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", zIndex: 70 }}>
+          <div style={{ background: "#1A222D", border: "1px solid #2B3644", borderRadius: "10px", width: "100%", maxWidth: "360px", padding: "20px", textAlign: "center" }}>
+            <div style={{ fontSize: "16px", fontWeight: 500, marginBottom: "12px", color: "#E9ECF1" }}>
+              {confirmModal.type === 'all' ? "Delete all prospects?" : confirmModal.type === 'empty_trash' ? "Empty Trash?" : "Delete this prospect?"}
+            </div>
+            <div style={{ fontSize: "13px", color: "#93A0B2", marginBottom: "20px" }}>
+              {confirmModal.type === 'empty_trash' ? "These prospects will be permanently deleted and cannot be recovered." : "They will be hidden from your pipeline. You can restore them later."}
+            </div>
+            <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+              <button className="crm-btn" onClick={() => setConfirmModal({ isOpen: false, type: null, targetId: null })}>Cancel</button>
+              <button className="crm-btn" style={{ background: "#C1554A", color: "#fff", borderColor: "#C1554A" }} onClick={() => confirmModal.type === 'all' ? confirmDeleteAll() : confirmModal.type === 'empty_trash' ? confirmEmptyTrash() : confirmDeleteContact(confirmModal.targetId)}>
+                {confirmModal.type === 'empty_trash' ? "Empty Trash" : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedIds.length > 0 && (
+        <div style={{ position: "fixed", bottom: "30px", left: "50%", transform: "translateX(-50%)", background: "#232E3D", border: "1px solid #C77D3B", borderRadius: "30px", padding: "10px 20px", display: "flex", alignItems: "center", gap: "16px", boxShadow: "0 8px 24px rgba(0,0,0,0.4)", zIndex: 90 }}>
+          <span style={{ fontSize: "14px", fontWeight: 500, color: "#E9ECF1" }}>{selectedIds.length} selected</span>
+          <div style={{ width: "1px", height: "16px", background: "#5F6C7D" }}></div>
+          {showTrash ? (
+            <button className="crm-btn" style={{ background: "transparent", border: "none", color: "#4C9A6A", padding: 0 }} onClick={restoreSelected}>Restore selected</button>
+          ) : (
+            <button className="crm-btn" style={{ background: "transparent", border: "none", color: "#C1554A", padding: 0 }} onClick={deleteSelected}>Delete selected</button>
+          )}
+          <button className="crm-btn" style={{ background: "transparent", border: "none", color: "#93A0B2", padding: 0 }} onClick={() => setSelectedIds([])}>Cancel</button>
+        </div>
+      )}
+
+      {toast.visible && (
+        <div style={{ position: "fixed", bottom: "24px", right: "24px", background: "#4C9A6A", color: "#fff", padding: "10px 16px", borderRadius: "6px", fontSize: "13px", fontWeight: 500, boxShadow: "0 4px 12px rgba(0,0,0,0.3)", zIndex: 100 }}>
+          {toast.message}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function NoteForm({ onSubmit }) {
+  const [val, setVal] = useState("");
+  return (
+    <div style={{ display: "flex", gap: "6px", marginTop: "6px" }}>
+      <input className="crm-input" placeholder="Add a note..." value={val}
+        onChange={(e) => setVal(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter") { onSubmit(val); setVal(""); } }} />
+      <button className="crm-btn" onClick={() => { onSubmit(val); setVal(""); }}>Add</button>
+    </div>
+  );
+}
+
+function AddModal({ onClose, onAdd }) {
+  const [form, setForm] = useState({ username: "", fullName: "", city: "", followers: "", phone: "", email: "", profileLink: "" });
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "40px 16px", zIndex: 60, overflowY: "auto" }}>
+      <div style={{ background: "#1A222D", border: "1px solid #2B3644", borderRadius: "10px", width: "100%", maxWidth: "420px", padding: "20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+          <div style={{ fontSize: "15px", fontWeight: 500 }}>Add prospect</div>
+          <button className="crm-btn" style={{ padding: "6px" }} onClick={onClose}>Close</button>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <input className="crm-input" placeholder="Instagram handle" value={form.username} onChange={set("username")} />
+          <input className="crm-input" placeholder="Business / full name" value={form.fullName} onChange={set("fullName")} />
+          <input className="crm-input" placeholder="City, State" value={form.city} onChange={set("city")} />
+          <input className="crm-input" placeholder="Followers" type="number" value={form.followers} onChange={set("followers")} />
+          <input className="crm-input" placeholder="Phone" value={form.phone} onChange={set("phone")} />
+          <input className="crm-input" placeholder="Email" value={form.email} onChange={set("email")} />
+          <input className="crm-input" placeholder="Profile link" value={form.profileLink} onChange={set("profileLink")} />
+        </div>
+        <button className="crm-btn crm-btn-accent" style={{ marginTop: "16px", width: "100%", justifyContent: "center" }} onClick={() => onAdd(form)}>Add to pipeline</button>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
