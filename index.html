@@ -670,16 +670,13 @@
         </div>
       </div>
 
-      <!-- Video 3 (9:16 Shorts) - Clickable Thumbnail Workaround -->
+      <!-- Video 3 (9:16 Shorts) - Native HTML5 Player -->
       <div class="testi-card" data-type="video">
         <div class="testi-photo ratio-1-1">
           <span class="tag">Scaling</span>
-          <a href="https://youtube.com/shorts/wZBIy-yyZH4" target="_blank" style="display:block; width:100%; height:100%; position:absolute; top:0; left:0;">
-            <img class="testi-media" src="https://img.youtube.com/vi/wZBIy-yyZH4/hqdefault.jpg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
-            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:60px; height:60px; background:rgba(0,0,0,0.7); border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid rgba(255,255,255,0.8); z-index:2; transition:transform 0.2s;">
-              <div style="width:0; height:0; border-top:12px solid transparent; border-bottom:12px solid transparent; border-left:18px solid white; margin-left:6px;"></div>
-            </div>
-          </a>
+          <video class="testi-media" controls poster="https://img.youtube.com/vi/wZBIy-yyZH4/hqdefault.jpg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; border:none; z-index:10; background:#000;">
+            <source src="testimonial_3.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="testi-body">
           <div class="quote">"How I scaled this home service business from $10k/mo to $50k/mo."</div>
