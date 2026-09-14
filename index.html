@@ -395,14 +395,15 @@
   .vs-item .ic { color: var(--gold); font-size: 0.75rem; }
   @media(max-width:600px){
     body, html { overflow-x: hidden; width: 100%; }
-    .flow { flex-wrap: nowrap; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 5px; }
+    .flow { flex-wrap: wrap; justify-content: center; gap: 8px; overflow: visible; }
     .flow::-webkit-scrollbar { display: none; }
-    .flow .pill { padding: 8px 10px; font-size: 0.58rem; white-space: nowrap; flex-shrink: 0; }
-    .flow .arrow { font-size: 0.8rem; flex-shrink: 0; }
+    .flow .pill { padding: 8px 12px; font-size: 0.6rem; white-space: nowrap; }
+    .flow .arrow { font-size: 0.8rem; }
   }
 
   @media (max-width:760px){
     body, html { overflow-x: hidden; width: 100%; }
+    header.site { flex-direction: column; gap: 18px; padding: 20px 0; }
     section{ padding:60px 0; }
     .hero { padding: 40px 15px; overflow-x: hidden; }
     .hero h1 { font-size: 1.75rem; line-height: 1.2; }
