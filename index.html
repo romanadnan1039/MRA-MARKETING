@@ -294,6 +294,7 @@
     width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.15);
     border:1.5px solid rgba(255,255,255,0.5); display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:2; transition:opacity 0.2s;
   }
+  .ratio-1-1{ aspect-ratio:1/1 !important; }
   .ratio-16-9{ aspect-ratio:16/9 !important; }
   .ratio-9-16{ aspect-ratio:9/16 !important; }
   .ratio-4-3{ aspect-ratio:4/3 !important; }
@@ -650,7 +651,7 @@
     <div class="testi-grid" id="testi-grid-container">
       <!-- Video 1 (16:9) -->
       <div class="testi-card" data-type="video">
-        <div class="testi-photo ratio-16-9"><span class="tag">Local Business</span><iframe class="testi-media" src="https://www.youtube.com/embed/C0gqpKL-TfM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
+        <div class="testi-photo ratio-1-1"><span class="tag">Local Business</span><iframe class="testi-media" src="https://www.youtube.com/embed/C0gqpKL-TfM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
         <div class="testi-body">
           <div class="quote">"How I booked 15+ booked appointments for my local US business client. Full case study."</div>
           <div class="stat-row"><div><div class="s-num">15+</div><div class="s-label">Booked Appointments</div></div></div>
@@ -660,7 +661,7 @@
 
       <!-- Video 2 (9:16 Shorts) -->
       <div class="testi-card" data-type="video">
-        <div class="testi-photo ratio-9-16"><span class="tag">Meta Ads</span><iframe class="testi-media" src="https://www.youtube.com/embed/lvqRmnYV8gk" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
+        <div class="testi-photo ratio-1-1"><span class="tag">Meta Ads</span><iframe class="testi-media" src="https://www.youtube.com/embed/lvqRmnYV8gk" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
         <div class="testi-body">
           <div class="quote">"How I brought consistent leads through Meta ads for my US client."</div>
           <div class="stat-row"><div><div class="s-num">Consistent</div><div class="s-label">High-Quality Leads</div></div></div>
@@ -670,7 +671,7 @@
 
       <!-- Video 3 (9:16 Shorts) -->
       <div class="testi-card" data-type="video">
-        <div class="testi-photo ratio-9-16"><span class="tag">Scaling</span><iframe class="testi-media" src="https://www.youtube.com/embed/wZBIy-yyZH4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
+        <div class="testi-photo ratio-1-1"><span class="tag">Scaling</span><iframe class="testi-media" src="https://www.youtube.com/embed/wZBIy-yyZH4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
         <div class="testi-body">
           <div class="quote">"How I scaled this home service business from $10k/mo to $50k/mo."</div>
           <div class="stat-row"><div><div class="s-num">$50k/mo</div><div class="s-label">Revenue Scaled</div></div></div>
@@ -680,31 +681,31 @@
 
       <!-- Photo Testimonial 1 -->
       <div class="testi-card" data-type="static-image">
-        <div class="testi-photo"><span class="tag">Photo Testimonial</span><img class="testi-media" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" /></div>
+        <div class="testi-photo ratio-1-1"><span class="tag">Client Feedback</span><img class="testi-media" src="testi1.png" style="width:100%; height:100%; object-fit:contain; position:absolute; top:0; left:0;" /></div>
         <div class="testi-body">
-          <div class="quote">"Photo testimonial placeholder text. Add your quote here."</div>
-          <div class="stat-row"><div><div class="s-num">00</div><div class="s-label">Metric</div></div></div>
-          <div class="biz">Business Name</div>
+          <div class="quote">"Thanks alot sir it was a great working experience this month... amazing work this month too @Roman - appreciate your effiency, commitment, skill as well as great communication too"</div>
+          <div class="stat-row"><div><div class="s-num">100%</div><div class="s-label">Client Satisfaction</div></div></div>
+          <div class="biz">Bogdan</div>
         </div>
       </div>
 
       <!-- Photo Testimonial 2 -->
       <div class="testi-card" data-type="static-image">
-        <div class="testi-photo"><span class="tag">Photo Testimonial</span><img class="testi-media" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" /></div>
+        <div class="testi-photo ratio-1-1"><span class="tag">Upwork Client</span><img class="testi-media" src="testi2.png" style="width:100%; height:100%; object-fit:contain; position:absolute; top:0; left:0;" /></div>
         <div class="testi-body">
-          <div class="quote">"Photo testimonial placeholder text. Add your quote here."</div>
-          <div class="stat-row"><div><div class="s-num">00</div><div class="s-label">Metric</div></div></div>
-          <div class="biz">Business Name</div>
+          <div class="quote">"Roman was extremely fast with communication! He was also very understanding and wanted to deliver me the best product possible! I would definitely recommend him..."</div>
+          <div class="stat-row"><div><div class="s-num">5.0</div><div class="s-label">Upwork Rating</div></div></div>
+          <div class="biz">Blender Animation Client</div>
         </div>
       </div>
 
       <!-- Photo Testimonial 3 -->
       <div class="testi-card" data-type="static-image">
-        <div class="testi-photo"><span class="tag">Photo Testimonial</span><img class="testi-media" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" /></div>
+        <div class="testi-photo ratio-1-1"><span class="tag">Upwork Client</span><img class="testi-media" src="testi3.png" style="width:100%; height:100%; object-fit:contain; position:absolute; top:0; left:0;" /></div>
         <div class="testi-body">
-          <div class="quote">"Photo testimonial placeholder text. Add your quote here."</div>
-          <div class="stat-row"><div><div class="s-num">00</div><div class="s-label">Metric</div></div></div>
-          <div class="biz">Business Name</div>
+          <div class="quote">"Roman is not only a professional, he is also a great person to work with. I recommend him to everyone."</div>
+          <div class="stat-row"><div><div class="s-num">5.0</div><div class="s-label">Upwork Rating</div></div></div>
+          <div class="biz">Meta Ads & AI Automation Client</div>
         </div>
       </div>
     </div>
