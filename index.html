@@ -393,15 +393,11 @@
   }
   .vs-item { display: flex; gap: 10px; font-size: 0.85rem; color: var(--white); align-items: center; }
   .vs-item .ic { color: var(--gold); font-size: 0.75rem; }
-  @media(max-width:600px){
-    body, html { overflow-x: hidden; width: 100%; }
-    .flow { flex-wrap: nowrap; justify-content: center; gap: 4px; overflow: hidden; width: 100%; }
-    .flow::-webkit-scrollbar { display: none; }
-    .flow .pill { padding: 6px 8px; font-size: 2.2vw; white-space: nowrap; letter-spacing: 0.5px; }
-    .flow .arrow { font-size: 2.5vw; margin: 0 1px; }
-  }
-
   @media (max-width:760px){
+    body, html { overflow-x: hidden; width: 100%; }
+    .flow { flex-wrap: nowrap; justify-content: center; gap: 3px; width: 100%; overflow: hidden; padding: 0; }
+    .flow .pill { padding: 5px 6px; font-size: clamp(7px, 2vw, 10px); white-space: nowrap; letter-spacing: 0; border-radius: 20px; }
+    .flow .arrow { font-size: clamp(7px, 2vw, 10px); margin: 0; }
     body, html { overflow-x: hidden; width: 100%; }
     header.site { flex-direction: column; gap: 18px; padding: 20px 0; }
     section{ padding:60px 0; }
