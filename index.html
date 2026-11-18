@@ -1384,6 +1384,598 @@
   }
 }
 
+
+/* ========================================================
+   APP-LIKE DEMO SHOWCASE STYLES (DEVICE & CARD CAROUSEL)
+   ======================================================== */
+.app-start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #d4af37, #f3e5ab);
+  color: #0b0b0a;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 16px 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+  transition: all 0.25s ease;
+}
+.app-start-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(212,175,55,0.6);
+}
+.play-pulse-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.app-showcase-container {
+  background: #141311;
+  border: 1px solid rgba(201,160,85,0.35);
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+  margin-top: 20px;
+}
+
+/* Nav Tabs */
+.app-step-navbar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+@media (max-width: 900px) {
+  .app-step-navbar {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+.app-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #191815;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.app-nav-tab:hover {
+  border-color: rgba(201,160,85,0.4);
+}
+.app-nav-tab.active {
+  background: #23201a;
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201,160,85,0.25);
+}
+.tab-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #2a2824;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+.app-nav-tab.active .tab-badge {
+  background: var(--gold);
+  color: #000;
+  font-weight: 900;
+}
+.tab-text {
+  display: flex;
+  flex-direction: column;
+}
+.tab-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+.tab-time {
+  font-size: 11px;
+  color: #888;
+}
+.app-nav-tab.active .tab-time {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+/* Card switching */
+.app-view-card {
+  display: none;
+  animation: fadeInCard 0.4s ease forwards;
+}
+.app-view-card.active {
+  display: block;
+}
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-inner-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .card-inner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phone Mockup Frame */
+.phone-mockup-frame {
+  width: 100%;
+  max-width: 320px;
+  background: #0d0c0a;
+  border: 4px solid #2b2823;
+  border-radius: 36px;
+  padding: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+  margin: 0 auto;
+}
+.phone-screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 14px;
+  padding: 0 8px;
+}
+.phone-notch {
+  width: 50px;
+  height: 6px;
+  background: #2b2823;
+  border-radius: 999px;
+}
+
+/* Card Explanation Side */
+.card-explanation-side .stage-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold-light);
+  background: rgba(201,160,85,0.12);
+  border: 1px solid rgba(201,160,85,0.3);
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.card-explanation-side h3 {
+  font-family: 'Inter', sans-serif !important;
+  font-size: clamp(22px, 3.2vw, 32px) !important;
+  font-weight: 800 !important;
+  color: #fff !important;
+  line-height: 1.25 !important;
+  margin-bottom: 14px !important;
+  text-transform: none !important;
+}
+.card-explanation-side p {
+  font-size: 15px;
+  color: #c5c1b9;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.feature-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.f-bullet {
+  font-size: 14px;
+  color: #f3f1ea;
+  font-weight: 600;
+}
+.step-progress-indicator {
+  width: 100%;
+  height: 6px;
+  background: #25231e;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #22c55e);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* Phone Inner Components */
+.fb-mock-badge {
+  display: inline-block;
+  background: rgba(24,119,242,0.15);
+  color: #60a5fa;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.fb-mini-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.mini-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #000;
+  font-weight: 800;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fb-mini-body {
+  font-size: 11px;
+  color: #ddd;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.fb-form-submitted-pill {
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.4);
+  color: #22c55e;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px;
+  text-align: center;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.lead-snapshot-box {
+  background: #171512;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 11px;
+}
+.snap-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.snap-row:last-child {
+  margin-bottom: 0;
+}
+.snap-row span {
+  color: #888;
+}
+
+/* AI Score Display */
+.ai-score-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 5px solid #22c55e;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34,197,94,0.08);
+  box-shadow: 0 0 25px rgba(34,197,94,0.3);
+}
+.score-number {
+  font-family: 'Anton', sans-serif;
+  font-size: 36px;
+  color: #fff;
+  line-height: 1;
+}
+.score-out {
+  font-size: 10px;
+  color: #aaa;
+}
+.scoring-breakdown-card {
+  background: #171512;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 11px;
+}
+.criteria-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.criteria-row:last-child {
+  margin-bottom: 0;
+}
+.badge-pass {
+  color: #22c55e;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+/* VOICE APP GRID (Direct Image Reference Style) */
+.voice-app-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 32px;
+  background: #fbf8f2;
+  border-radius: 24px;
+  padding: 28px;
+  color: #111;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+}
+@media (max-width: 860px) {
+  .voice-app-grid {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+}
+.ai-call-device {
+  background: #172118;
+  border-radius: 24px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.call-top-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #86efac;
+  margin-bottom: 18px;
+}
+.call-green-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulseGreen 1.5s infinite;
+}
+.call-robot-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(34,197,94,0.18);
+  border: 1px solid rgba(34,197,94,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.call-agent-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+.call-sub-lead {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+.call-timer-display {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin: 12px 0;
+  font-family: monospace;
+}
+.voice-device-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 28px;
+  margin-bottom: 8px;
+}
+.v-wave-bar {
+  width: 3px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 2px;
+}
+.voice-device-wave.active .v-wave-bar:nth-child(even) {
+  animation: waveAnim 0.6s infinite alternate ease-in-out;
+}
+.voice-device-wave.active .v-wave-bar:nth-child(odd) {
+  animation: waveAnim 0.45s infinite alternate ease-in-out 0.15s;
+}
+.agent-speaking-tag {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 20px;
+}
+.call-action-buttons {
+  display: flex;
+  gap: 16px;
+}
+.call-btn-green, .call-btn-red {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+}
+.call-btn-green { background: #22c55e; }
+.call-btn-red { background: #ef4444; }
+
+/* Live Transcript Box */
+.live-transcript-container {
+  display: flex;
+  flex-direction: column;
+}
+.transcript-header-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2b2823;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.chat-messages-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.chat-row.homeowner {
+  justify-content: flex-end;
+}
+.chat-avatar-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e5e0d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.chat-avatar-icon.user {
+  background: #234229;
+}
+.chat-bubble {
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  max-width: 440px;
+}
+.chat-bubble.agent {
+  background: #fff;
+  color: #2b2823;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+.chat-bubble.homeowner {
+  background: #28442e;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+.chat-sender-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #22c55e;
+  margin-bottom: 4px;
+}
+.chat-sender-label.user {
+  color: #86efac;
+}
+
+/* Calendar Screen */
+.calendar-slot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cal-slot {
+  background: #171512;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 11px;
+}
+.cal-slot.taken {
+  opacity: 0.6;
+}
+.cal-slot.newly-locked {
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.4);
+}
+.slot-time {
+  font-weight: 700;
+  color: #fff;
+  margin-right: 8px;
+}
+.slot-time.highlight {
+  color: #22c55e;
+}
+.new-pill {
+  font-size: 9px;
+  font-weight: 800;
+  background: #22c55e;
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Card 5 Final Box */
+.final-job-locked-card {
+  text-align: center;
+  padding: 40px 20px;
+}
+.big-congrats-bubble {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #000;
+  font-size: 36px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(34,197,94,0.4);
+}
+.final-stats-mini-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.mini-stat-box {
+  background: #1a1815;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 14px 24px;
+}
+.mini-stat-box .num {
+  display: block;
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  color: var(--gold);
+}
+.mini-stat-box .lbl {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+}
+
 </style>
 
 
@@ -1510,166 +2102,356 @@
   <div class="wrap">
     
     <!-- HEADER -->
-    <div style="text-align: center; max-width: 820px; margin: 0 auto 36px;">
-      <span class="sys-badge"><span class="pulse-dot"></span> Live Interactive Experience</span>
+    <div style="text-align: center; max-width: 840px; margin: 0 auto 30px;">
+      <span class="sys-badge"><span class="pulse-dot"></span> Live Interactive App Experience</span>
       <h2 style="font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; margin-bottom: 14px;">
-        See How A Cold Ad Click Turns Into A <span class="gold">Confirmed Job Call In Under 60 Seconds</span>
+        Watch How A Cold Lead Becomes A <span class="gold">Confirmed Job Call In Under 60 Seconds</span>
       </h2>
       <p style="color: #c5c1b9; font-size: 16px; line-height: 1.6;">
-        No complicated tech jargon. As an owner, here is exactly what happens the second an infested homeowner clicks your ad while you and your technicians are busy in the field.
+        Experience our exact software workflow in real time. Click <b>"Start Live Demo"</b> to watch an incoming termite lead get ingested, scored 96/100, called by our AI voice agent, and locked onto your calendar.
       </p>
+
+      <!-- START DEMO TRIGGER BUTTON -->
+      <div style="margin-top: 22px;">
+        <button class="app-start-btn" id="btn-app-start" onclick="startAppWorkflow()">
+          <span class="play-pulse-circle">▶</span>
+          <span id="btn-start-label">START LIVE SYSTEM DEMO</span>
+        </button>
+      </div>
     </div>
 
-    <!-- 2-COLUMN INTERACTIVE DEMO (Crystal Clear Layout) -->
-    <div class="demo-super-card">
-      <div class="demo-split-grid">
+    <!-- APP-LIKE DEVICE WRAPPER -->
+    <div class="app-showcase-container">
+      
+      <!-- TOP STEP NAVIGATION BAR -->
+      <div class="app-step-navbar">
+        <div class="app-nav-tab active" id="tab-1" onclick="jumpToStep(1)">
+          <div class="tab-badge">01</div>
+          <div class="tab-text">
+            <span class="tab-title">Lead Ingested</span>
+            <span class="tab-time">0.0s &middot; Meta Ad</span>
+          </div>
+        </div>
+        <div class="app-nav-tab" id="tab-2" onclick="jumpToStep(2)">
+          <div class="tab-badge">02</div>
+          <div class="tab-text">
+            <span class="tab-title">AI Scoring</span>
+            <span class="tab-time">+3.5s &middot; 96/100</span>
+          </div>
+        </div>
+        <div class="app-nav-tab" id="tab-3" onclick="jumpToStep(3)">
+          <div class="tab-badge">03</div>
+          <div class="tab-text">
+            <span class="tab-title">AI Voice Call</span>
+            <span class="tab-time">+18.0s &middot; Speed-to-Lead</span>
+          </div>
+        </div>
+        <div class="app-nav-tab" id="tab-4" onclick="jumpToStep(4)">
+          <div class="tab-badge">04</div>
+          <div class="tab-text">
+            <span class="tab-title">Calendar Booking</span>
+            <span class="tab-time">+35.0s &middot; Synced</span>
+          </div>
+        </div>
+        <div class="app-nav-tab" id="tab-5" onclick="jumpToStep(5)">
+          <div class="tab-badge">05</div>
+          <div class="tab-text">
+            <span class="tab-title">Job Locked</span>
+            <span class="tab-time">+42.0s &middot; Confirmed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN STAGE / PHONE + VISUAL DISPLAY -->
+      <div class="app-screen-body">
         
-        <!-- LEFT: WHAT THE HOMEOWNER SEES & DOES -->
-        <div class="demo-column">
-          <div class="demo-col-badge">
-            <span class="step-badge-num">1</span>
-            <span>Homeowner Takes Action</span>
-          </div>
-          <h3 class="demo-col-heading">An Infested Homeowner Submits Your Facebook Ad</h3>
-          <p class="demo-col-sub">They need pest control fast. Instead of shopping 5 other companies, your local ad catches them immediately.</p>
-
-          <!-- Mock Facebook Ad -->
-          <div class="fb-ad-box">
-            <div class="fb-ad-header">
-              <div class="fb-avatar">P</div>
-              <div>
-                <div class="fb-brand-name">Your Pest Control Company</div>
-                <div class="fb-meta-sub">Sponsored &middot; 25-Mile Radius &middot; Meta Ads</div>
+        <!-- CARD 1: INGESTION -->
+        <div class="app-view-card active" id="view-card-1">
+          <div class="card-inner-grid">
+            <div class="phone-mockup-frame">
+              <div class="phone-screen-header">
+                <span class="phone-notch"></span>
+                <span class="phone-network">5G ●●●</span>
+                <span class="phone-time">10:42 AM</span>
               </div>
-            </div>
-            
-            <div class="fb-ad-text">
-              "Hearing scratching noises in your attic or spotted termite sawdust along the baseboards? <b>Get a Free Same-Day Inspection &amp; $100 Off Treatment</b> before structural damage gets worse."
-            </div>
-
-            <div class="fb-lead-card">
-              <div class="fb-lead-field">
-                <span class="lbl">Homeowner:</span>
-                <span class="val">David Miller (Verified Homeowner)</span>
-              </div>
-              <div class="fb-lead-field">
-                <span class="lbl">Urgent Problem:</span>
-                <span class="val highlight">Severe Termites &amp; Carpenter Ants</span>
-              </div>
-              <div class="fb-lead-field">
-                <span class="lbl">Property:</span>
-                <span class="val">2,600 sq ft Single-Family Home</span>
+              <div class="phone-screen-content">
+                <div class="fb-mock-badge">Facebook Sponsored Ad</div>
+                <div class="fb-mini-author">
+                  <div class="mini-avatar">P</div>
+                  <div>
+                    <div style="font-weight:700; font-size:12px; color:#fff;">Your Pest Control Co.</div>
+                    <div style="font-size:10px; color:#888;">Austin, TX &middot; 25-Mile Radius</div>
+                  </div>
+                </div>
+                <div class="fb-mini-body">
+                  "Notice termite dust or wood damage along baseboards? Get a Free Comprehensive Inspection &amp; $100 Off Treatment."
+                </div>
+                <div class="fb-form-submitted-pill">
+                  ✓ Instant Lead Form Submitted
+                </div>
+                <div class="lead-snapshot-box">
+                  <div class="snap-row"><span>Lead:</span> <strong>David Miller</strong></div>
+                  <div class="snap-row"><span>Status:</span> <strong style="color:#22c55e;">Verified Homeowner</strong></div>
+                  <div class="snap-row"><span>Issue:</span> <strong style="color:var(--gold-light);">Subterranean Termites</strong></div>
+                  <div class="snap-row"><span>Zip Code:</span> <strong>78704 (In Route)</strong></div>
+                </div>
               </div>
             </div>
 
-            <!-- Big Clickable Button -->
-            <button class="trigger-cta-btn" id="btn-trigger-demo" onclick="runLeadDemo()">
-              <span class="btn-icon">▶</span>
-              <span>TAP HERE TO SIMULATE THIS LEAD &rarr;</span>
-            </button>
-            <div style="text-align:center; font-size:11px; color:#888; margin-top:6px;">Watch the right side instantly respond &amp; book the job</div>
-          </div>
-
-          <!-- Live Voice Call Box -->
-          <div class="voice-status-card" id="voice-sim-box">
-            <div class="voice-header-row">
-              <div class="voice-indicator">
-                <span class="v-dot" id="voice-pulse"></span>
-                <span id="voice-status-text">AI Voice Callback: Waiting for lead...</span>
+            <div class="card-explanation-side">
+              <span class="stage-tag">STAGE 1: INSTANT CAPTURE</span>
+              <h3>Lead Ingested In Under 1 Second</h3>
+              <p>Homeowner spots active termites, scrolls Meta, and submits your custom landing page form. Within <b>0.3 seconds</b>, the webhook triggers, scrubs the data, and tags the lead in your pipeline.</p>
+              <div class="feature-bullets">
+                <div class="f-bullet">✔ 100% exclusive — never sold to other local exterminators</div>
+                <div class="f-bullet">✔ Auto-validates phone numbers to eliminate fake leads</div>
+                <div class="f-bullet">✔ Verifies residential homeowner status automatically</div>
               </div>
-              <span class="voice-clock" id="voice-timer">00:00</span>
-            </div>
-
-            <div class="wave-container" id="wave-container">
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-            </div>
-
-            <div class="voice-transcript-bubble" id="transcript-line">
-              "Click the gold button above to hear how our system calls David in under 45 seconds and books him on your calendar."
+              <div class="step-progress-indicator">
+                <div class="progress-bar-fill" style="width: 20%;"></div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT: WHAT OUR SYSTEM DOES (AUTOMATICALLY) -->
-        <div class="demo-column">
-          <div class="demo-col-badge gold">
-            <span class="step-badge-num gold">2</span>
-            <span>Our Automated System Takes Over</span>
-          </div>
-          <h3 class="demo-col-heading">Under-60-Second Speed-to-Lead In Action</h3>
-          <p class="demo-col-sub">While your competitors wait 3 to 5 hours to call back, our system locks the job in before the homeowner can look elsewhere.</p>
+        <!-- CARD 2: AI SCORING -->
+        <div class="app-view-card" id="view-card-2">
+          <div class="card-inner-grid">
+            <div class="phone-mockup-frame">
+              <div class="phone-screen-header">
+                <span class="phone-notch"></span>
+                <span class="phone-network">5G ●●●</span>
+                <span class="phone-time">10:42 AM</span>
+              </div>
+              <div class="phone-screen-content">
+                <div style="text-align:center; padding:10px 0;">
+                  <div class="ai-score-circle">
+                    <span class="score-number">96</span>
+                    <span class="score-out">/ 100</span>
+                  </div>
+                  <div style="color:#22c55e; font-weight:800; font-size:13px; margin-top:8px;">★ PRIORITY HIGH-TICKET LEAD</div>
+                </div>
+                
+                <div class="scoring-breakdown-card">
+                  <div class="criteria-row">
+                    <span>Homeownership:</span>
+                    <span class="badge-pass">Single-Family (Pass)</span>
+                  </div>
+                  <div class="criteria-row">
+                    <span>Infestation Type:</span>
+                    <span class="badge-pass">Termite ($1,200+ Value)</span>
+                  </div>
+                  <div class="criteria-row">
+                    <span>Urgency Level:</span>
+                    <span class="badge-pass">High (Immediate Action)</span>
+                  </div>
+                  <div class="criteria-row">
+                    <span>Tech Route Match:</span>
+                    <span class="badge-pass">Truck #2 in Sector (Pass)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div class="clean-stepper-box">
+            <div class="card-explanation-side">
+              <span class="stage-tag">STAGE 2: AUTOMATED QUALIFICATION</span>
+              <h3>Pre-Qualified Before A Tech Ever Moves</h3>
+              <p>No more driving 45 minutes to find out it was a renter who needs landlord permission, or someone wanting a $30 spray. Our AI engine scores each inquiry against your ideal ticket margins.</p>
+              <div class="feature-bullets">
+                <div class="f-bullet">✔ Prioritizes high-ticket termite, bed bug &amp; rodent jobs</div>
+                <div class="f-bullet">✔ Filters out tire-kickers and out-of-service zip codes</div>
+                <div class="f-bullet">✔ Routes straight to the nearest technician's daily path</div>
+              </div>
+              <div class="step-progress-indicator">
+                <div class="progress-bar-fill" style="width: 40%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: AI VOICE CALL (Image Reference Style) -->
+        <div class="app-view-card" id="view-card-3">
+          <div class="voice-app-grid">
             
-            <!-- Step 1 -->
-            <div class="clean-step-item" id="p-step-1">
-              <div class="step-circle">1</div>
-              <div class="step-info">
-                <div class="step-row-top">
-                  <span class="step-title-text">Lead Captured &amp; Verified</span>
-                  <span class="step-pill-time">0.0 Seconds</span>
-                </div>
-                <div class="step-desc-text">Lead instantly pulled from Meta into your private CRM. Confirmed single-family homeowner in your exact service zip code.</div>
+            <!-- Left: Calling Device -->
+            <div class="ai-call-device">
+              <div class="call-top-indicator">
+                <span class="call-green-dot"></span>
+                <span>LIVE CALL</span>
+              </div>
+              <div class="call-robot-icon">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+              </div>
+              <div class="call-agent-title">AI Voice Agent</div>
+              <div class="call-sub-lead">Calling David Miller</div>
+              <div class="call-timer-display" id="voice-call-timer">00:18</div>
+
+              <!-- Animated Waveform -->
+              <div class="voice-device-wave active">
+                <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+                <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+                <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+                <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+              </div>
+              <div class="agent-speaking-tag">Agent speaking...</div>
+
+              <div class="call-action-buttons">
+                <button class="call-btn-green">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </button>
+                <button class="call-btn-red">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m16 8-8 8M8 8l8 8"/></svg>
+                </button>
               </div>
             </div>
 
-            <!-- Step 2 -->
-            <div class="clean-step-item" id="p-step-2">
-              <div class="step-circle">2</div>
-              <div class="step-info">
-                <div class="step-row-top">
-                  <span class="step-title-text">AI Qualification &amp; Scoring</span>
-                  <span class="step-pill-time">+3.5 Seconds</span>
-                </div>
-                <div class="step-desc-text">Infestation tagged as <b>High Ticket Termite Remediation ($1,200+)</b>. Not a cheap $39 one-time spray shopper.</div>
+            <!-- Right: Live Transcript Messages -->
+            <div class="live-transcript-container">
+              <div class="transcript-header-bar">
+                <span>Live Transcript</span>
+                <span style="color:#888;">Turn 4 of 4 &middot; Real-Time</span>
               </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="clean-step-item" id="p-step-3">
-              <div class="step-circle">3</div>
-              <div class="step-info">
-                <div class="step-row-top">
-                  <span class="step-title-text">Speed-to-Lead AI Call &amp; SMS</span>
-                  <span class="step-pill-time">+18.0 Seconds</span>
+              <div class="chat-messages-scroll" id="chat-stream-box">
+                <!-- Message 1: Agent -->
+                <div class="chat-row agent">
+                  <div class="chat-avatar-icon">🤖</div>
+                  <div class="chat-bubble agent">
+                    <div class="chat-sender-label">AI AGENT</div>
+                    <div>Hello David, this is the dispatch assistant for Austin Pest Solutions. I noticed you just requested a termite inspection for your home. Are you noticing active mud tubes?</div>
+                  </div>
                 </div>
-                <div class="step-desc-text">System dials David while his phone is still in his hand. Speaks naturally, answers pricing concerns, offers morning/afternoon slots.</div>
-              </div>
-            </div>
 
-            <!-- Step 4 -->
-            <div class="clean-step-item" id="p-step-4">
-              <div class="step-circle">4</div>
-              <div class="step-info">
-                <div class="step-row-top">
-                  <span class="step-title-text">Job Call Booked on Your Schedule</span>
-                  <span class="step-pill-time">+42.0 Seconds</span>
+                <!-- Message 2: Homeowner -->
+                <div class="chat-row homeowner">
+                  <div class="chat-bubble homeowner">
+                    <div class="chat-sender-label user">DAVID (HOMEOWNER)</div>
+                    <div>Yes! I saw wood shavings along my garage wall this morning and want someone to look at it ASAP.</div>
+                  </div>
+                  <div class="chat-avatar-icon user">👤</div>
                 </div>
-                <div class="step-desc-text">Appointment reserved for <b>Today at 2:30 PM</b>. Synced into your calendar &amp; confirmation text sent to homeowner with your tech details.</div>
+
+                <!-- Message 3: Agent -->
+                <div class="chat-row agent">
+                  <div class="chat-avatar-icon">🤖</div>
+                  <div class="chat-bubble agent">
+                    <div class="chat-sender-label">AI AGENT</div>
+                    <div>I completely understand. We have an inspector in your area today who can inspect it at 2:30 PM, or tomorrow at 9:00 AM. Which works best for you?</div>
+                  </div>
+                </div>
+
+                <!-- Message 4: Homeowner -->
+                <div class="chat-row homeowner">
+                  <div class="chat-bubble homeowner">
+                    <div class="chat-sender-label user">DAVID (HOMEOWNER)</div>
+                    <div>2:30 PM today works great for my wife and me.</div>
+                  </div>
+                  <div class="chat-avatar-icon user">👤</div>
+                </div>
               </div>
             </div>
 
           </div>
+        </div>
 
-          <!-- Success Alert -->
-          <div id="booking-congrats" class="booking-success-box" style="display:none;">
-            <div class="success-icon">✓</div>
-            <div>
-              <div class="success-title">JOB CALL BOOKED &amp; LOCKED IN 42 SECONDS!</div>
-              <div class="success-subtitle">Zero phone tag. Zero missed revenue. This happens 15+ times a month on complete autopilot.</div>
+        <!-- CARD 4: CALENDAR SYNC -->
+        <div class="app-view-card" id="view-card-4">
+          <div class="card-inner-grid">
+            <div class="phone-mockup-frame">
+              <div class="phone-screen-header">
+                <span class="phone-notch"></span>
+                <span class="phone-network">5G ●●●</span>
+                <span class="phone-time">10:43 AM</span>
+              </div>
+              <div class="phone-screen-content">
+                <div style="font-weight:700; font-size:13px; color:#fff; margin-bottom:12px; display:flex; justify-content:space-between;">
+                  <span>DISPATCH SCHEDULE</span>
+                  <span style="color:var(--gold-light);">TODAY</span>
+                </div>
+                
+                <div class="calendar-slot-list">
+                  <div class="cal-slot taken">
+                    <span class="slot-time">09:00 AM</span>
+                    <span class="slot-desc">General Pest Spray &middot; 78701</span>
+                  </div>
+                  <div class="cal-slot taken">
+                    <span class="slot-time">11:30 AM</span>
+                    <span class="slot-desc">Rodent Exclusion &middot; 78703</span>
+                  </div>
+                  <div class="cal-slot newly-locked">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <span class="slot-time highlight">02:30 PM</span>
+                      <span class="new-pill">★ AUTO-BOOKED</span>
+                    </div>
+                    <div style="font-weight:700; color:#fff; font-size:12px; margin-top:4px;">David Miller &middot; Termite Remediation</div>
+                    <div style="font-size:11px; color:#c5c1b9;">Est. Ticket: $1,450 &middot; Truck #2 Assigned</div>
+                  </div>
+                  <div class="cal-slot open">
+                    <span class="slot-time">04:30 PM</span>
+                    <span class="slot-desc">Available Route Slot</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-explanation-side">
+              <span class="stage-tag">STAGE 4: INSTANT DISPATCH SYNC</span>
+              <h3>No Phone Tag. Booked Right On Your Route.</h3>
+              <p>The call concludes, and the appointment is placed directly into FieldRoutes, ServiceTitan, or Google Calendar. An automatic 2-way SMS confirmation is sent with your tech's photo and arrival window.</p>
+              <div class="feature-bullets">
+                <div class="f-bullet">✔ Syncs with your existing dispatch and CRM software</div>
+                <div class="f-bullet">✔ Zero human office staff hours wasted playing phone tag</div>
+                <div class="f-bullet">✔ Automated SMS reminder cuts no-show rate to under 5%</div>
+              </div>
+              <div class="step-progress-indicator">
+                <div class="progress-bar-fill" style="width: 80%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: CONFIRMED JOB CALL BOOKED -->
+        <div class="app-view-card" id="view-card-5">
+          <div class="final-job-locked-card">
+            <div class="big-congrats-bubble">✓</div>
+            <h3 style="font-size:clamp(22px, 3.5vw, 32px); color:#22c55e; margin:16px 0 8px; font-weight:800;">
+              JOB CALL CONFIRMED &amp; BOOKED IN 42 SECONDS!
+            </h3>
+            <p style="color:#e2dfd7; font-size:16px; max-width:620px; margin:0 auto 24px; line-height:1.5;">
+              While other exterminators haven't even opened their email, your technician already has a confirmed, qualified $1,450 termite job locked on their schedule for 2:30 PM today.
+            </p>
+
+            <div class="final-stats-mini-row">
+              <div class="mini-stat-box">
+                <span class="num">42s</span>
+                <span class="lbl">Total Speed-to-Lead</span>
+              </div>
+              <div class="mini-stat-box">
+                <span class="num">$1,450</span>
+                <span class="lbl">Estimated Job Value</span>
+              </div>
+              <div class="mini-stat-box">
+                <span class="num">15+</span>
+                <span class="lbl">Guaranteed / Month</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 26px;">
+              <a href="https://calendly.com/byromaan/30min" target="_blank" rel="noopener" class="btn-gold" style="padding:16px 36px; font-size:14px; font-weight:800;">
+                GET YOUR FREE AUDIT &rarr;
+              </a>
             </div>
           </div>
         </div>
 
       </div>
+
     </div>
 
-    <!-- ========================================================
+  </div>
+</section>
+
+
+<!-- ========================================================
          BEFORE VS AFTER: THE BRUTAL COMPARISON FOR OWNERS
          ======================================================== -->
     <div class="comparison-outer-wrap">
@@ -1847,70 +2629,52 @@
   </div>
 </section>
 
-<!-- INTERACTIVE SCRIPTS -->
+<!-- APP WORKFLOW SCRIPTS -->
 <script>
-let demoRunning = false;
-function runLeadDemo() {
-  if (demoRunning) return;
-  demoRunning = true;
+let activeStep = 1;
+let autoPlayInterval = null;
+let isPlaying = false;
 
-  const btn = document.getElementById('btn-trigger-demo');
-  const voiceBox = document.getElementById('voice-sim-box');
-  const transcript = document.getElementById('transcript-line');
-  const pulse = document.getElementById('voice-pulse');
-  const statusText = document.getElementById('voice-status-text');
-  const timer = document.getElementById('voice-timer');
-  const congrats = document.getElementById('booking-congrats');
-
-  // Reset steps
-  for (let i = 1; i <= 4; i++) {
-    const el = document.getElementById('p-step-' + i);
-    if (el) el.classList.remove('active');
+function jumpToStep(stepNum) {
+  activeStep = stepNum;
+  // Update Tabs
+  for (let i = 1; i <= 5; i++) {
+    const tab = document.getElementById('tab-' + i);
+    const card = document.getElementById('view-card-' + i);
+    if (tab) tab.classList.toggle('active', i === stepNum);
+    if (card) card.classList.toggle('active', i === stepNum);
   }
-  if (congrats) congrats.style.display = 'none';
-  btn.innerHTML = '<span>⚡ Processing Inbound Lead...</span>';
+}
 
-  // Step 1: Ingestion
-  setTimeout(() => {
-    const s1 = document.getElementById('p-step-1');
-    if (s1) s1.classList.add('active');
-  }, 400);
+function startAppWorkflow() {
+  const btn = document.getElementById('btn-app-start');
+  const label = document.getElementById('btn-start-label');
 
-  // Step 2: Scoring
-  setTimeout(() => {
-    const s2 = document.getElementById('p-step-2');
-    if (s2) s2.classList.add('active');
-  }, 1400);
+  if (isPlaying) {
+    clearInterval(autoPlayInterval);
+    isPlaying = false;
+    label.innerText = 'RESUME LIVE DEMO';
+    return;
+  }
 
-  // Step 3: Voice Call & Waveform
-  setTimeout(() => {
-    const s3 = document.getElementById('p-step-3');
-    if (s3) s3.classList.add('active');
-    voiceBox.classList.add('playing');
-    pulse.style.background = '#22c55e';
-    statusText.innerText = 'AI Calling David Miller (Lead)...';
-    transcript.innerText = '"Hi David, this is Roman\'s dispatch team following up on your termite inspection request. We have an inspector in your neighborhood today at 2:30 PM—does that work for you?"';
-    timer.innerText = '00:18';
-  }, 2600);
+  isPlaying = true;
+  label.innerText = 'PLAYING LIVE DEMO (CLICK TO PAUSE)';
+  
+  if (activeStep >= 5) {
+    activeStep = 1;
+  }
+  jumpToStep(activeStep);
 
-  // Homeowner response
-  setTimeout(() => {
-    timer.innerText = '00:32';
-    transcript.innerText = 'David (Homeowner): "Yes, 2:30 PM is great. We work from home and saw mud tubes along our foundation wall."';
-  }, 4400);
-
-  // Step 4: Booking Locked
-  setTimeout(() => {
-    const s4 = document.getElementById('p-step-4');
-    if (s4) s4.classList.add('active');
-    voiceBox.classList.remove('playing');
-    statusText.innerText = 'Call Complete · Confirmed on Calendar';
-    timer.innerText = '00:42';
-    transcript.innerText = '"You\'re all set for 2:30 PM today, David! I just texted you our technician\'s details and badge ID. See you then!"';
-    if (congrats) congrats.style.display = 'flex';
-    btn.innerHTML = '<span>✓ Demo Complete · Click to Replay</span>';
-    demoRunning = false;
-  }, 6200);
+  autoPlayInterval = setInterval(() => {
+    activeStep++;
+    if (activeStep > 5) {
+      clearInterval(autoPlayInterval);
+      isPlaying = false;
+      label.innerText = 'REPLAY LIVE SYSTEM DEMO';
+    } else {
+      jumpToStep(activeStep);
+    }
+  }, 3800);
 }
 
 function updateRoiCalc() {
@@ -1932,6 +2696,7 @@ function updateRoiCalc() {
   document.getElementById('roi-annual-rev').innerText = '+$' + annualRev.toLocaleString() + ' / yr';
 }
 </script>
+
 
 
 <section class="objections">
