@@ -414,6 +414,368 @@
     .final-card { padding: 40px 20px; }
     .value-stack .vs-items { grid-template-columns: 1fr; }
   }
+
+/* ========================================================
+   REVENUE OS / INTERACTIVE PEST CONTROL SYSTEM STYLES
+   ======================================================== */
+.interactive-sys-sec {
+  padding: 80px 0 60px;
+  background: radial-gradient(circle at 50% 20%, rgba(201,160,85,0.08) 0%, rgba(11,11,10,0.98) 70%);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.sys-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,160,85,0.12);
+  border: 1px solid rgba(201,160,85,0.3);
+  color: var(--gold-light);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.sys-badge .pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulseGreen 2s infinite;
+}
+@keyframes pulseGreen {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.interactive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 36px;
+  align-items: stretch;
+}
+@media (max-width: 960px) {
+  .interactive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Boxes */
+.sys-card {
+  background: #141311;
+  border: 1px solid rgba(201,160,85,0.22);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  position: relative;
+  display: flex;
+  flex-col: column;
+}
+.sys-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+.sys-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sys-card-subtitle {
+  font-size: 12px;
+  color: var(--grey);
+}
+
+/* Interactive Mock Ad Form */
+.mock-ad {
+  background: #1a1916;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+.mock-ad-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.mock-ad-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #000;
+  font-size: 14px;
+}
+.mock-ad-copy {
+  font-size: 13px;
+  color: #e2dfd7;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+.mock-ad-preview-box {
+  background: #0f0e0c;
+  border: 1px dashed rgba(201,160,85,0.3);
+  border-radius: 10px;
+  padding: 14px;
+}
+.mock-ad-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #0b0b0a;
+  border: none;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(201,160,85,0.3);
+}
+.mock-ad-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201,160,85,0.45);
+}
+
+/* Pipeline Live Stepper */
+.pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 22px;
+}
+.pipeline-step:last-child {
+  padding-bottom: 0;
+}
+.pipeline-step::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255,255,255,0.08);
+}
+.pipeline-step.active::before {
+  background: linear-gradient(to bottom, var(--gold), rgba(255,255,255,0.08));
+}
+.step-icon-bubble {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #1b1a17;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+.pipeline-step.active .step-icon-bubble {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #0b0b0a;
+  border-color: var(--gold-light);
+  box-shadow: 0 0 15px rgba(201,160,85,0.4);
+}
+.step-content {
+  flex: 1;
+}
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.step-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fff;
+}
+.step-time {
+  font-size: 11px;
+  color: var(--gold-light);
+  font-weight: 600;
+  background: rgba(201,160,85,0.1);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+.step-desc {
+  font-size: 12px;
+  color: var(--grey);
+  line-height: 1.4;
+}
+
+/* Audio Waveform & Voice Box */
+.voice-sim-box {
+  background: #0d0c0a;
+  border: 1px solid rgba(201,160,85,0.25);
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 16px;
+}
+.wave-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 32px;
+  margin: 10px 0;
+}
+.wave-bar {
+  width: 3px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: height 0.15s ease;
+}
+.voice-sim-box.playing .wave-bar:nth-child(even) {
+  animation: waveAnim 0.7s infinite alternate ease-in-out;
+}
+.voice-sim-box.playing .wave-bar:nth-child(odd) {
+  animation: waveAnim 0.5s infinite alternate ease-in-out 0.2s;
+}
+@keyframes waveAnim {
+  0% { height: 6px; opacity: 0.4; }
+  100% { height: 28px; opacity: 1; }
+}
+
+.transcript-line {
+  background: #181714;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: #f3f1ea;
+  margin-top: 8px;
+  line-height: 1.45;
+  border-left: 3px solid var(--gold);
+  font-style: italic;
+}
+
+/* ROI Calculator Styles */
+.roi-section-wrap {
+  margin-top: 50px;
+  background: #141311;
+  border: 1px solid rgba(201,160,85,0.22);
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+}
+.roi-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+  margin-top: 24px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .roi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.roi-slider-group {
+  margin-bottom: 22px;
+}
+.roi-slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.roi-slider-val {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+.roi-range-input {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: #2a2824;
+  outline: none;
+}
+.roi-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(201,160,85,0.8);
+}
+.roi-output-card {
+  background: #0e0d0b;
+  border: 1px solid rgba(201,160,85,0.3);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.roi-output-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(201,160,85,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.roi-stat-box {
+  margin-bottom: 20px;
+}
+.roi-stat-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 42px;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+}
+.roi-stat-tag {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--grey);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+.roi-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 0;
+  font-size: 13px;
+  color: #ccc;
+}
+.roi-breakdown-row strong {
+  color: #fff;
+}
+
 </style>
 
 
@@ -495,12 +857,12 @@
       <span class="pill" style="color: var(--gold);">Booked Inspections</span>
     </div>
     <h1>
-      <span class="gold">20+ EXCLUSIVE</span><br>
-      <span class="gold">QUALIFIED BOOKED INSPECTIONS</span><br>
-      FOR PEST CONTROL COMPANIES<br>
-      IN <span class="gold">30 DAYS</span>
+      <span class="gold">15+ PEST CONTROL JOB CALLS</span><br>
+      <span class="gold">WITHIN 30 DAYS</span><br>
+      GUARANTEED<br>
+      <span style="font-size: 0.6em; letter-spacing: 0.04em; font-family: 'Inter', sans-serif; font-weight: 700; color: #F3F1EA;">OR I WORK FREE UNTIL I BOOK THEM</span>
     </h1>
-    <p class="hero-subline"><span class="gold">Guaranteed.</span> Or I Work <span class="gold">Free</span> Until I Do.</p>
+    <p class="hero-subline"><span class="gold">15+ Qualified Job Calls in 30 Days Guaranteed.</span> Or I Work <span class="gold">100% Free</span> Until Delivered.</p>
     <p class="lead">One proven system for independent pest control companies. We handle your offer, ad creative, Meta ads, your landing page, and your follow-up.</p>
     <p class="bold-line">Cold Meta traffic in. <span class="gold">Booked inspections out.</span></p>
     <p class="bold-line">30 days or less. <span class="gold">Guaranteed.</span></p>
@@ -533,6 +895,332 @@
     <div class="stat"><div class="num">14 days</div><div class="label">Onboarding to live ads</div></div>
   </div>
 </section>
+
+
+<!-- INTERACTIVE SYSTEM SECTION: REVENUE OS FOR PEST CONTROL -->
+<section class="interactive-sys-sec" id="interactive-demo">
+  <div class="wrap">
+    <div style="text-align: center; max-width: 780px; margin: 0 auto 30px;">
+      <span class="sys-badge"><span class="pulse-dot"></span> Live Interactive Experience</span>
+      <h2 style="font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; margin-bottom: 14px;">
+        Watch How A Cold Meta Lead Becomes A <span class="gold">Booked Job In &lt; 60 Seconds</span>
+      </h2>
+      <p style="color: var(--grey); font-size: 15px; line-height: 1.5;">
+        Most pest control companies lose 60% of their ad spend because callbacks take hours. Experience how our automated Speed-to-Lead &amp; AI Booking engine captures, qualifies, and locks <b>15+ guaranteed jobs</b> directly onto your technician's schedule.
+      </p>
+    </div>
+
+    <div class="interactive-grid">
+      <!-- Left: Interactive Simulator Controls -->
+      <div class="sys-card">
+        <div class="sys-card-header">
+          <div>
+            <div class="sys-card-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Step 1: Inbound Lead Trigger
+            </div>
+            <div class="sys-card-subtitle">Click below to simulate a real homeowner in need</div>
+          </div>
+          <span style="font-size: 11px; color: #22c55e; font-weight: 700; background: rgba(34,197,94,0.12); padding: 4px 10px; border-radius: 999px;">● Ready to fire</span>
+        </div>
+
+        <div class="mock-ad">
+          <div class="mock-ad-brand">
+            <div class="mock-ad-avatar">P</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700; color: #fff;">Your Pest Control Co. &middot; Sponsored</div>
+              <div style="font-size: 11px; color: var(--grey);">Meta Ad &middot; Local 25-Mile Radius</div>
+            </div>
+          </div>
+          <p class="mock-ad-copy">
+            "Termites or rodent noises keeping you awake? Don't let damage spread. We have 2 licensed inspectors in your area today offering <b>Same-Day Free Inspections + $100 Off Treatment</b>."
+          </p>
+          <div class="mock-ad-preview-box">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px;">
+              <span style="color:#aaa;">Lead Name:</span>
+              <span style="color:#fff; font-weight:600;" id="sim-lead-name">Michael Vance (Homeowner)</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px;">
+              <span style="color:#aaa;">Infestation Issue:</span>
+              <span style="color:var(--gold-light); font-weight:600;">Severe Subterranean Termites</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px;">
+              <span style="color:#aaa;">Location:</span>
+              <span style="color:#fff;">Residential Single-Family &middot; 2,400 sq ft</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="mock-ad-btn" id="btn-trigger-demo" onclick="runLeadDemo()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Simulate Inbound Lead &rarr; Watch System Execute
+        </button>
+
+        <div class="voice-sim-box" id="voice-sim-box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:12px; font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
+              <span style="width:7px; height:7px; border-radius:50%; background:#ef4444;" id="voice-pulse"></span>
+              <span id="voice-status-text">AI Voice Call Agent: Standby</span>
+            </div>
+            <span style="font-size:11px; color:var(--gold);" id="voice-timer">00:00</span>
+          </div>
+
+          <div class="wave-container" id="wave-container">
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          </div>
+
+          <div class="transcript-line" id="transcript-line">
+            "Click the button above to watch our 60-second callback and qualification script in action."
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Real-time System Execution Stages -->
+      <div class="sys-card" style="justify-content: flex-start;">
+        <div class="sys-card-header">
+          <div>
+            <div class="sys-card-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Step 2: Speed-to-Lead Execution Pipeline
+            </div>
+            <div class="sys-card-subtitle">Zero delay &middot; 100% automated &middot; syncs directly to dispatch</div>
+          </div>
+          <span id="pipeline-status-badge" style="font-size: 11px; color: var(--gold-light); font-weight: 700; background: rgba(201,160,85,0.12); padding: 4px 10px; border-radius: 999px;">Standing By</span>
+        </div>
+
+        <div class="pipeline-container" style="display:flex; flex-direction:column; gap:6px;">
+          <!-- Stage 1 -->
+          <div class="pipeline-step" id="p-step-1">
+            <div class="step-icon-bubble">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-name">1. Lead Ingestion &amp; Instant Webhook</span>
+                <span class="step-time" id="t-step-1">0.0s</span>
+              </div>
+              <div class="step-desc">Meta Lead form submitted. Contact scrubbed, verified homeowner status, and synced into CRM pipeline.</div>
+            </div>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="pipeline-step" id="p-step-2">
+            <div class="step-icon-bubble">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-name">2. AI Lead Qualification &amp; Scoring</span>
+                <span class="step-time" id="t-step-2">+3.2s</span>
+              </div>
+              <div class="step-desc">Infestation severity evaluated. Scored <b>96/100 (High-Ticket Termite Job)</b>. Zip code matched to technician route.</div>
+            </div>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="pipeline-step" id="p-step-3">
+            <div class="step-icon-bubble">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-name">3. 45-Second AI Voice Call &amp; 2-Way SMS</span>
+                <span class="step-time" id="t-step-3">+18.0s</span>
+              </div>
+              <div class="step-desc">System calls lead within 45s while intent is boiling. Conversational AI agent handles schedule objections instantly.</div>
+            </div>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="pipeline-step" id="p-step-4">
+            <div class="step-icon-bubble">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="step-content">
+              <div class="step-header">
+                <span class="step-name">4. Direct Dispatch Calendar Lock</span>
+                <span class="step-time" id="t-step-4">+42.0s</span>
+              </div>
+              <div class="step-desc">Appointment reserved: <b>Today at 2:30 PM</b>. FieldRoutes / ServiceTitan route updated. Homeowner receives automated confirmation.</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="booking-congrats" style="display:none; margin-top:20px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); border-radius:12px; padding:14px; text-align:center;">
+          <div style="color:#22c55e; font-weight:800; font-size:14px;">✓ JOB CALL LOCKED &amp; BOOKED IN 42 SECONDS</div>
+          <div style="color:var(--grey); font-size:12px; margin-top:3px;">No admin phone tag. No missed lead. This happens 15+ times a month on autopilot.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEST CONTROL REVENUE & ROI CALCULATOR -->
+    <div class="roi-section-wrap">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 20px;">
+        <div class="eyebrow" style="margin-bottom: 8px;">Dynamic Revenue Model</div>
+        <h3 style="font-size: clamp(24px, 3.5vw, 34px); color: #fff; line-height: 1.2;">
+          How Much Is Slow Follow-Up <span class="gold">Costing Your Business?</span>
+        </h3>
+        <p style="color: var(--grey); font-size: 14px;">
+          Adjust the sliders to see what automated 60-second follow-up and 15+ guaranteed booked jobs adds to your bottom line.
+        </p>
+      </div>
+
+      <div class="roi-grid">
+        <!-- Sliders -->
+        <div>
+          <div class="roi-slider-group">
+            <div class="roi-slider-label">
+              <span>Monthly Inquiries / Ad Leads:</span>
+              <span class="roi-slider-val" id="val-leads">50 leads/mo</span>
+            </div>
+            <input type="range" min="15" max="200" step="5" value="50" class="roi-range-input" id="range-leads" oninput="updateRoiCalc()">
+          </div>
+
+          <div class="roi-slider-group">
+            <div class="roi-slider-label">
+              <span>Average Pest Control Ticket / Value:</span>
+              <span class="roi-slider-val" id="val-ticket">$650</span>
+            </div>
+            <input type="range" min="250" max="2500" step="50" value="650" class="roi-range-input" id="range-ticket" oninput="updateRoiCalc()">
+            <div style="font-size: 11px; color: var(--grey); margin-top: 4px;">Blended average across general pest, termite treatments, rodent exclusions &amp; recurring plans.</div>
+          </div>
+
+          <div class="roi-slider-group">
+            <div class="roi-slider-label">
+              <span>Current Booking Rate (Industry avg ~18%):</span>
+              <span class="roi-slider-val" id="val-close">18%</span>
+            </div>
+            <input type="range" min="10" max="40" step="2" value="18" class="roi-range-input" id="range-close" oninput="updateRoiCalc()">
+          </div>
+        </div>
+
+        <!-- Output Card -->
+        <div class="roi-output-card">
+          <div class="roi-stat-box">
+            <div class="roi-stat-num" id="roi-additional-rev">+$16,250</div>
+            <div class="roi-stat-tag">Potential Added Monthly Revenue</div>
+          </div>
+
+          <div class="roi-breakdown-row">
+            <span>Extra Booked Inspections / Month:</span>
+            <strong id="roi-extra-jobs" style="color:var(--gold-light);">+15 to +22 Jobs</strong>
+          </div>
+          <div class="roi-breakdown-row">
+            <span>Annualized Growth:</span>
+            <strong id="roi-annual-rev">+$195,000 / yr</strong>
+          </div>
+          <div class="roi-breakdown-row">
+            <span>Our Performance Guarantee:</span>
+            <strong style="color:#22c55e;">15+ Job Calls or We Work Free</strong>
+          </div>
+
+          <div style="margin-top: 18px;">
+            <a href="https://calendly.com/byromaan/30min" target="_blank" rel="noopener" class="btn-gold" style="display:inline-block; width:100%; padding:14px; text-align:center; font-size:13px;">
+              Lock In Your 15+ Guaranteed Job Calls &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INTERACTIVE SCRIPTS -->
+<script>
+let demoRunning = false;
+function runLeadDemo() {
+  if (demoRunning) return;
+  demoRunning = true;
+
+  const btn = document.getElementById('btn-trigger-demo');
+  const badge = document.getElementById('pipeline-status-badge');
+  const voiceBox = document.getElementById('voice-sim-box');
+  const transcript = document.getElementById('transcript-line');
+  const pulse = document.getElementById('voice-pulse');
+  const statusText = document.getElementById('voice-status-text');
+  const timer = document.getElementById('voice-timer');
+  const congrats = document.getElementById('booking-congrats');
+
+  // Reset steps
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('p-step-' + i).classList.remove('active');
+  }
+  congrats.style.display = 'none';
+  btn.innerHTML = '<span>⚡ Processing Inbound Lead...</span>';
+  badge.innerText = 'Engaging Lead...';
+  badge.style.color = '#e7cb93';
+
+  // Step 1: Ingestion
+  setTimeout(() => {
+    document.getElementById('p-step-1').classList.add('active');
+    badge.innerText = 'Lead Ingested';
+  }, 400);
+
+  // Step 2: Scoring
+  setTimeout(() => {
+    document.getElementById('p-step-2').classList.add('active');
+    badge.innerText = 'Scoring 96/100 · High Ticket';
+  }, 1400);
+
+  // Step 3: Voice Call & Waveform
+  setTimeout(() => {
+    document.getElementById('p-step-3').classList.add('active');
+    voiceBox.classList.add('playing');
+    pulse.style.background = '#22c55e';
+    statusText.innerText = 'AI Agent Calling Michael Vance...';
+    transcript.innerText = '"Hi Michael, this is Roman\'s dispatch team following up on your termite inspection request. We have an inspector in your area today at 2:30 PM—does that work for you?"';
+    timer.innerText = '00:18';
+    badge.innerText = 'AI Voice Engaged';
+  }, 2600);
+
+  // Homeowner response
+  setTimeout(() => {
+    timer.innerText = '00:32';
+    transcript.innerText = 'Homeowner: "Yes, 2:30 PM is perfect, we work from home and saw mud tubes along the garage foundation."';
+  }, 4400);
+
+  // Step 4: Booking Locked
+  setTimeout(() => {
+    document.getElementById('p-step-4').classList.add('active');
+    voiceBox.classList.remove('playing');
+    statusText.innerText = 'Call Complete &middot; Appointment Confirmed';
+    timer.innerText = '00:42';
+    transcript.innerText = '"Great, Michael! You\'re locked in for today at 2:30 PM. I\'ve sent a text confirmation with your technician\'s badge details."';
+    badge.innerText = 'Booked & Synced';
+    badge.style.color = '#22c55e';
+    congrats.style.display = 'block';
+    btn.innerHTML = '<span>✓ Demo Complete &middot; Click to Replay</span>';
+    demoRunning = false;
+  }, 6200);
+}
+
+function updateRoiCalc() {
+  const leads = parseInt(document.getElementById('range-leads').value);
+  const ticket = parseInt(document.getElementById('range-ticket').value);
+  const curRate = parseInt(document.getElementById('range-close').value) / 100;
+
+  document.getElementById('val-leads').innerText = leads + ' leads/mo';
+  document.getElementById('val-ticket').innerText = '$' + ticket.toLocaleString();
+  document.getElementById('val-close').innerText = Math.round(curRate * 100) + '%';
+
+  // System lifts booking rate to 38% due to <60s speed to lead
+  const targetRate = Math.max(0.35, curRate + 0.17);
+  const extraJobs = Math.max(15, Math.round(leads * (targetRate - curRate)));
+  const extraRev = extraJobs * ticket;
+  const annualRev = extraRev * 12;
+
+  document.getElementById('roi-additional-rev').innerText = '+$' + extraRev.toLocaleString();
+  document.getElementById('roi-extra-jobs').innerText = '+' + extraJobs + ' Jobs / mo';
+  document.getElementById('roi-annual-rev').innerText = '+$' + annualRev.toLocaleString() + ' / yr';
+}
+</script>
+
 
 <section class="objections">
   <div class="wrap">
@@ -644,9 +1332,54 @@
     <div class="section-head" style="margin-top:-24px;">
       <h2>Real Owners. <span class="gold">Real Numbers.</span></h2>
       <p class="desc">These aren't projections. They're results from owners who ran the system.</p>
-      <p class="placeholder-note">PLACEHOLDER CARDS &mdash; same photo / quote / stat / business-name structure as the reference. Send real client results and photos to fill these in.</p>
+      
     </div>
     <div class="testi-grid" id="testi-grid-container">
+
+      <!-- Pest Control Case Study 1: $14k Ad Spend -> $200k Booked Jobs in 60 Days -->
+      <div class="testi-card" data-type="video" style="border: 1px solid rgba(201,160,85,0.4); box-shadow: 0 8px 30px rgba(201,160,85,0.15);">
+        <div class="testi-photo ratio-1-1">
+          <span class="tag" style="background:var(--gold); color:#000; font-weight:800;">Featured Case Study</span>
+          <iframe class="testi-media" src="https://www.youtube.com/embed/hOzw4TCSlFg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe>
+        </div>
+        <div class="testi-body">
+          <div class="quote">"Turned $14k ad spend into $200k worth of booked pest control jobs in 60 days after implementing the system."</div>
+          <div class="stat-row">
+            <div>
+              <div class="s-num" style="color:var(--gold); font-size:26px;">$200,000</div>
+              <div class="s-label">Booked Jobs (60 Days)</div>
+            </div>
+            <div>
+              <div class="s-num" style="font-size:26px;">14.2x</div>
+              <div class="s-label">ROAS / Return</div>
+            </div>
+          </div>
+          <div class="biz" style="font-weight:700; color:#fff;">Pest Control Business Case Study &middot; $14k &rarr; $200k</div>
+        </div>
+      </div>
+
+      <!-- Pest Control Case Study 2: $594 Ad Spend -> $7,000 Booked in 7 Days -->
+      <div class="testi-card" data-type="video" style="border: 1px solid rgba(201,160,85,0.4); box-shadow: 0 8px 30px rgba(201,160,85,0.15);">
+        <div class="testi-photo ratio-1-1">
+          <span class="tag" style="background:var(--gold); color:#000; font-weight:800;">7-Day Sprint Case Study</span>
+          <iframe class="testi-media" src="https://www.youtube.com/embed/wZabr9pwiYw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe>
+        </div>
+        <div class="testi-body">
+          <div class="quote">"$594 in ad spend converted directly into 5 high-value jobs worth $7,000 in just 7 days of running ads."</div>
+          <div class="stat-row">
+            <div>
+              <div class="s-num" style="color:var(--gold); font-size:26px;">$7,000</div>
+              <div class="s-label">5 Jobs Booked (7 Days)</div>
+            </div>
+            <div>
+              <div class="s-num" style="font-size:26px;">11.8x</div>
+              <div class="s-label">From $594 Ad Spend</div>
+            </div>
+          </div>
+          <div class="biz" style="font-weight:700; color:#fff;">Pest Control Company Case Study &middot; $594 &rarr; $7,000</div>
+        </div>
+      </div>
+
       <!-- Video 1 (16:9) -->
       <div class="testi-card" data-type="video">
         <div class="testi-photo ratio-1-1"><span class="tag">Local Business</span><iframe class="testi-media" src="https://www.youtube.com/embed/C0gqpKL-TfM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%; height:100%; position:absolute; top:0; left:0; border:none;"></iframe></div>
@@ -733,7 +1466,7 @@
 <section class="guarantee">
   <div class="wrap">
     <div class="eyebrow">30 Days Or Free</div>
-    <h2 style="margin-top:-14px;">Funnel Live In 14 Days. Booked Inspections In 30.<br><span class="gold">Or We Work For Free.</span></h2>
+    <h2 style="margin-top:-14px;">15+ Pest Control Job Calls Within 30 Days Guaranteed.<br><span class="gold">Or I Work Free Until I Book Them.</span></h2>
     <p class="body">If your Meta ads haven't produced booked inspections within 30 days of going live, <b>we keep working at no management fee</b> until they do. You never get locked into a contract. All of our services are month-to-month. You only stay when you get results.</p>
     <div class="lockin-pill">&check; Month-to-month &middot; No lock-in</div>
     <br>
@@ -810,7 +1543,7 @@
     <div class="final-card">
       <h2 style="margin-top:0;">Ready To See If <span class="gold">We're A Fit?</span></h2>
       <p class="desc">We'll audit your current marketing, offer, lead flow and follow up system to find exactly where you're losing potential customers.</p>
-      <p class="desc">You'll see what we'd fix, which offer makes the most sense for your market, where your current funnel is leaking opportunities and how we'd build the system to help you work toward 20+ booked inspections every month.</p>
+      <p class="desc">You'll see what we'd fix, which offer makes the most sense for your market, where your current funnel is leaking opportunities and how we'd build the system to help you deliver 15+ exclusive booked job calls and inspections every month.</p>
       <p class="desc">This isn't a sales call where we pitch you before understanding your business. You'll leave with a clear list of what to fix, what to prioritize and what your next growth move should be, whether you work with MRA MARKETING or not.</p>
       
       <div class="value-stack">
