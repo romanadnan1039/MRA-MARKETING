@@ -710,23 +710,88 @@
   color: var(--gold-light);
   font-weight: 700;
 }
+.slider-instruction-banner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(201,160,85,0.22), rgba(201,160,85,0.08));
+  border: 2px solid var(--gold);
+  padding: 12px 24px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 0 25px rgba(201,160,85,0.25);
+  animation: glowPulse 2.5s infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(201,160,85,0.2); }
+  50% { box-shadow: 0 0 35px rgba(201,160,85,0.45); border-color: #fff; }
+}
+.hand-icon-pulse {
+  font-size: 20px;
+  animation: nudgeHand 1.5s infinite alternate ease-in-out;
+}
+@keyframes nudgeHand {
+  0% { transform: translateX(-4px); }
+  100% { transform: translateX(4px); }
+}
+.banner-text strong {
+  color: var(--gold-light);
+  letter-spacing: 0.05em;
+}
+
+/* Enhanced Slider Group */
+.roi-slider-group {
+  margin-bottom: 26px;
+  background: #191815;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+.roi-slider-group:hover {
+  border-color: rgba(201,160,85,0.4);
+}
+.drag-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-light);
+  background: rgba(201,160,85,0.14);
+  border: 1px solid rgba(201,160,85,0.3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+}
 .roi-range-input {
   width: 100%;
   -webkit-appearance: none;
-  height: 6px;
-  border-radius: 3px;
+  height: 10px;
+  border-radius: 5px;
   background: #2a2824;
   outline: none;
+  cursor: ew-resize;
+  margin-top: 8px;
 }
 .roi-range-input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: var(--gold);
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(201,160,85,0.8);
+  background: linear-gradient(135deg, #fff, var(--gold));
+  cursor: ew-resize;
+  border: 3px solid #000;
+  box-shadow: 0 0 16px rgba(201,160,85,1);
+  transition: transform 0.15s ease;
+}
+.roi-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 22px rgba(255,255,255,0.9);
 }
 .roi-output-card {
   background: #0e0d0b;
@@ -1590,14 +1655,20 @@
          PEST CONTROL REVENUE & ROI CALCULATOR
          ======================================================== -->
     <div class="roi-section-wrap">
-      <div style="text-align: center; max-width: 680px; margin: 0 auto 24px;">
+      <div style="text-align: center; max-width: 760px; margin: 0 auto 30px;">
         <div class="eyebrow" style="margin-bottom: 8px;">Interactive Revenue Calculator</div>
-        <h3 style="font-size: clamp(24px, 3.5vw, 34px); color: #fff; line-height: 1.2;">
+        <h3 style="font-size: clamp(24px, 3.5vw, 34px); color: #fff; line-height: 1.2; margin-bottom: 16px;">
           How Much Is Slow Follow-Up <span class="gold">Costing Your Pest Business?</span>
         </h3>
-        <p style="color: #9c978d; font-size: 15px; margin-top: 6px;">
-          Move the sliders below to see your current revenue vs. what automated 60-second callbacks will add each month.
-        </p>
+        
+        <!-- HIGH-VISIBILITY INTERACTIVE INSTRUCTION BANNER -->
+        <div class="slider-instruction-banner">
+          <span class="hand-icon-pulse">👉</span>
+          <span class="banner-text">
+            <strong>DRAG &amp; SLIDE THE CONTROLS BELOW:</strong> See exactly how many extra booked jobs and dollars our 60-second system adds to your monthly revenue!
+          </span>
+          <span class="hand-icon-pulse">👈</span>
+        </div>
       </div>
 
       <div class="roi-grid">
@@ -1605,7 +1676,7 @@
         <div>
           <div class="roi-slider-group">
             <div class="roi-slider-label">
-              <span>Monthly Inquiries / Ad Leads:</span>
+              <span>Monthly Inquiries / Ad Leads: <span class="drag-hint-pill">⇄ Slide Me</span></span>
               <span class="roi-slider-val" id="val-leads">50 leads/mo</span>
             </div>
             <input type="range" min="15" max="200" step="5" value="50" class="roi-range-input" id="range-leads" oninput="updateRoiCalc()">
@@ -1613,7 +1684,7 @@
 
           <div class="roi-slider-group">
             <div class="roi-slider-label">
-              <span>Average Pest Control Job Ticket:</span>
+              <span>Average Pest Control Job Ticket: <span class="drag-hint-pill">⇄ Slide Me</span></span>
               <span class="roi-slider-val" id="val-ticket">$650</span>
             </div>
             <input type="range" min="250" max="2500" step="50" value="650" class="roi-range-input" id="range-ticket" oninput="updateRoiCalc()">
@@ -1622,7 +1693,7 @@
 
           <div class="roi-slider-group">
             <div class="roi-slider-label">
-              <span>Current Booking Rate (Industry average ~18%):</span>
+              <span>Current Booking Rate (Industry average ~18%): <span class="drag-hint-pill">⇄ Slide Me</span></span>
               <span class="roi-slider-val" id="val-close">18%</span>
             </div>
             <input type="range" min="10" max="40" step="2" value="18" class="roi-range-input" id="range-close" oninput="updateRoiCalc()">
