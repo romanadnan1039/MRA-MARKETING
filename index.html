@@ -1288,6 +1288,102 @@
   margin: 0;
 }
 
+
+/* ========================================================
+   GOLD PHILOSOPHY CARD (BEFORE PACKAGES)
+   ======================================================== */
+.value-philosophy-sec {
+  padding: 40px 0 20px;
+}
+.gold-philosophy-card {
+  background: linear-gradient(135deg, #C9A055 0%, #D4AF37 50%, #B8860B 100%);
+  border-radius: 28px;
+  padding: 56px 40px;
+  text-align: center;
+  color: #11100C;
+  box-shadow: 0 20px 60px rgba(201,160,85,0.28), 0 0 0 1px rgba(255,255,255,0.15) inset;
+  position: relative;
+  overflow: hidden;
+}
+.gold-card-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: clamp(30px, 4.8vw, 54px) !important;
+  font-weight: 800 !important;
+  color: #0B0B0A !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 34px !important;
+  text-transform: none !important;
+}
+.gold-metrics-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 5vw, 60px);
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.gold-metric-item {
+  text-align: center;
+}
+.gold-metric-item .metric-num {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(26px, 3.2vw, 36px);
+  color: #0B0B0A;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+.gold-metric-item .metric-lbl {
+  font-size: 13.5px;
+  color: rgba(11,11,10,0.85);
+  font-weight: 600;
+  margin-top: 4px;
+}
+.gold-card-subline {
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 700;
+  color: #11100C;
+  line-height: 1.5;
+  max-width: 680px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(11,11,10,0.15);
+  font-style: italic;
+}
+.gold-card-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #0B0B0A;
+  color: #F3F1EA;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 16px 36px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  transition: all 0.2s ease;
+}
+.gold-card-cta-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: #000;
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+}
+@media (max-width: 640px) {
+  .gold-philosophy-card {
+    padding: 38px 20px;
+    border-radius: 20px;
+  }
+  .gold-metrics-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
 </style>
 
 
@@ -2123,6 +2219,49 @@ function updateRoiCalc() {
           <li><span class="ic">&cross;</span> You're still relying on Angi, Bark, or HomeAdvisor and hoping quality improves</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGH CONVERTING GOLD VALUE BANNER (BEFORE PACKAGES) -->
+<section class="value-philosophy-sec">
+  <div class="wrap">
+    <div class="gold-philosophy-card">
+      
+      <!-- Big Headline -->
+      <h2 class="gold-card-title">
+        We don't want to charge you $2,000.<br>
+        We want to make you $20,000.
+      </h2>
+
+      <!-- 3 Key Metric Anchors -->
+      <div class="gold-metrics-row">
+        <div class="gold-metric-item">
+          <div class="metric-num">$20,000+</div>
+          <div class="metric-lbl">revenue we aim to generate</div>
+        </div>
+        <div class="gold-metric-item">
+          <div class="metric-num">$500 &ndash; $800</div>
+          <div class="metric-lbl">our fee, easily covered</div>
+        </div>
+        <div class="gold-metric-item">
+          <div class="metric-num">10x &ndash; 15x</div>
+          <div class="metric-lbl">return we build towards</div>
+        </div>
+      </div>
+
+      <!-- Core Philosophy Statement requested by user -->
+      <p class="gold-card-subline">
+        "We make you money and then make ours from that, and that's the only way we're gonna do it."
+      </p>
+
+      <!-- Action Button -->
+      <div style="margin-top: 26px;">
+        <a href="https://calendly.com/byromaan/30min" target="_blank" rel="noopener" class="gold-card-cta-btn">
+          GET YOUR FREE AUDIT &rarr;
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
