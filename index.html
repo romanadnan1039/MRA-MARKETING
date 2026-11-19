@@ -1385,6 +1385,87 @@
 }
 
 
+
+/* LIVE 60-SECOND DEMO HUD TIMER & PROGRESS STYLES */
+.live-elapsed-hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #0E0D0B;
+  border: 1px solid rgba(201,160,85,0.4);
+  padding: 10px 20px;
+  border-radius: 999px;
+  box-shadow: 0 0 25px rgba(201,160,85,0.25);
+  animation: fadeInHud 0.3s ease;
+}
+@keyframes fadeInHud {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.hud-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulseGreen 1.2s infinite;
+}
+.hud-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--grey);
+}
+.hud-timer-digits {
+  font-family: 'Anton', monospace, sans-serif;
+  font-size: 24px;
+  color: var(--gold-light);
+  line-height: 1;
+  min-width: 58px;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.hud-stage-pill {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: rgba(201,160,85,0.16);
+  color: #fff;
+  border: 1px solid rgba(201,160,85,0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+
+.demo-master-progress {
+  width: 100%;
+  max-width: 620px;
+  margin-top: 4px;
+}
+.master-bar-track {
+  width: 100%;
+  height: 6px;
+  background: #201E1A;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.master-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), #22c55e);
+  border-radius: 999px;
+  transition: width 0.1s linear;
+}
+.master-bar-markers {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #888;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
 /* ========================================================
    APP-LIKE DEMO SHOWCASE STYLES (DEVICE & CARD CAROUSEL)
    ======================================================== */
@@ -2112,12 +2193,36 @@
         Experience our exact software workflow in real time. Click <b>"Start Live Demo"</b> to watch an incoming termite lead get ingested, scored 96/100, called by our AI voice agent, and locked onto your calendar.
       </p>
 
-      <!-- START DEMO TRIGGER BUTTON -->
-      <div style="margin-top: 22px;">
-        <button class="app-start-btn" id="btn-app-start" onclick="startAppWorkflow()">
-          <span class="play-pulse-circle">▶</span>
-          <span id="btn-start-label">START LIVE SYSTEM DEMO</span>
-        </button>
+      <!-- START DEMO TRIGGER BUTTON & LIVE 60-SEC HUD TIMER -->
+      <div style="margin-top: 22px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
+          <button class="app-start-btn" id="btn-app-start" onclick="startAppWorkflow()">
+            <span class="play-pulse-circle" id="btn-icon-indicator">▶</span>
+            <span id="btn-start-label">START LIVE SYSTEM DEMO</span>
+          </button>
+          
+          <!-- LIVE ACTIVE TIMING HUD -->
+          <div class="live-elapsed-hud" id="live-elapsed-hud" style="display: none;">
+            <span class="hud-live-dot"></span>
+            <span class="hud-label">ELAPSED:</span>
+            <span class="hud-timer-digits" id="hud-timer-digits">0.0s</span>
+            <span class="hud-stage-pill" id="hud-stage-pill">Ingesting Lead</span>
+          </div>
+        </div>
+
+        <!-- 60-SECOND REAL-TIME PROGRESS BAR -->
+        <div class="demo-master-progress" id="demo-master-progress" style="display: none;">
+          <div class="master-bar-track">
+            <div class="master-bar-fill" id="master-bar-fill"></div>
+          </div>
+          <div class="master-bar-markers">
+            <span>0s Ad Click</span>
+            <span>3.5s AI Score</span>
+            <span>18s Speed Call</span>
+            <span>35s Calendar</span>
+            <span>42s Confirmed</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2772,12 +2877,27 @@
 <!-- APP WORKFLOW SCRIPTS -->
 <script>
 let activeStep = 1;
-let autoPlayInterval = null;
 let isPlaying = false;
+let elapsedTenths = 0;
+let masterTimer = null;
+
+// Stage timestamps in seconds:
+// Step 1: 0.0s - 3.4s (Lead Ingestion)
+// Step 2: 3.5s - 17.9s (AI Scoring)
+// Step 3: 18.0s - 34.9s (Speed-to-Lead AI Call)
+// Step 4: 35.0s - 41.9s (Calendar Booking)
+// Step 5: 42.0s+ (Job Locked Confirmed)
+
+const stageDefinitions = [
+  { step: 1, triggerTenths: 0, label: "01 Ingesting Lead", barPct: 15 },
+  { step: 2, triggerTenths: 35, label: "02 Scoring 96/100", barPct: 35 },
+  { step: 3, triggerTenths: 180, label: "03 AI Voice Call Active", barPct: 65 },
+  { step: 4, triggerTenths: 350, label: "04 Syncing Calendar", barPct: 85 },
+  { step: 5, triggerTenths: 420, label: "05 Job Call Locked ✓", barPct: 100 }
+];
 
 function jumpToStep(stepNum) {
   activeStep = stepNum;
-  // Update Tabs
   for (let i = 1; i <= 5; i++) {
     const tab = document.getElementById('tab-' + i);
     const card = document.getElementById('view-card-' + i);
@@ -2789,32 +2909,75 @@ function jumpToStep(stepNum) {
 function startAppWorkflow() {
   const btn = document.getElementById('btn-app-start');
   const label = document.getElementById('btn-start-label');
+  const icon = document.getElementById('btn-icon-indicator');
+  const hud = document.getElementById('live-elapsed-hud');
+  const progressBox = document.getElementById('demo-master-progress');
 
   if (isPlaying) {
-    clearInterval(autoPlayInterval);
+    // Pause
+    clearInterval(masterTimer);
     isPlaying = false;
     label.innerText = 'RESUME LIVE DEMO';
+    icon.innerText = '▶';
     return;
   }
 
+  // Start or resume
   isPlaying = true;
   label.innerText = 'PLAYING LIVE DEMO (CLICK TO PAUSE)';
-  
-  if (activeStep >= 5) {
-    activeStep = 1;
-  }
-  jumpToStep(activeStep);
+  icon.innerText = '❚❚';
+  hud.style.display = 'inline-flex';
+  progressBox.style.display = 'block';
 
-  autoPlayInterval = setInterval(() => {
-    activeStep++;
-    if (activeStep > 5) {
-      clearInterval(autoPlayInterval);
-      isPlaying = false;
-      label.innerText = 'REPLAY LIVE SYSTEM DEMO';
-    } else {
-      jumpToStep(activeStep);
+  // If completed previously, restart from 0
+  if (elapsedTenths >= 430) {
+    elapsedTenths = 0;
+  }
+
+  // Ticks every 100ms (0.1s)
+  masterTimer = setInterval(() => {
+    elapsedTenths++;
+    const currentSeconds = (elapsedTenths / 10).toFixed(1);
+    
+    // Update Timer Display
+    const timerDisplay = document.getElementById('hud-timer-digits');
+    if (timerDisplay) timerDisplay.innerText = currentSeconds + 's';
+
+    // Update Progress Bar (42s is 100%)
+    const pct = Math.min(100, (elapsedTenths / 420) * 100);
+    const barFill = document.getElementById('master-bar-fill');
+    if (barFill) barFill.style.width = pct + '%';
+
+    // Check which stage we are at
+    for (let s of stageDefinitions) {
+      if (elapsedTenths === s.triggerTenths) {
+        jumpToStep(s.step);
+        const stagePill = document.getElementById('hud-stage-pill');
+        if (stagePill) stagePill.innerText = s.label;
+        break;
+      }
     }
-  }, 3800);
+
+    // Update Call timer if on card 3
+    if (elapsedTenths >= 180 && elapsedTenths < 350) {
+      const callSeconds = Math.floor((elapsedTenths - 180) / 10);
+      const callTimerEl = document.getElementById('voice-call-timer');
+      if (callTimerEl) {
+        const secStr = callSeconds < 10 ? '0' + callSeconds : callSeconds;
+        callTimerEl.innerText = '00:' + secStr;
+      }
+    }
+
+    // Complete at 43.0s
+    if (elapsedTenths >= 430) {
+      clearInterval(masterTimer);
+      isPlaying = false;
+      label.innerText = 'REPLAY 60-SEC SYSTEM DEMO';
+      icon.innerText = '↺';
+      const stagePill = document.getElementById('hud-stage-pill');
+      if (stagePill) stagePill.innerText = "Job Locked in 42.0s ✓";
+    }
+  }, 100);
 }
 
 function updateRoiCalc() {
